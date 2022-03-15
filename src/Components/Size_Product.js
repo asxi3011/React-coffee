@@ -4,7 +4,7 @@ const sizes = [{ id: 1, name: 'M', sizePrice: 1000 },
 { id: 2, name: 'L', sizePrice: 2000 }
 ]
 
-const Price = ({ sendDataToParent }) => {
+const SizePrice = ({ sendDataToParent }) => {
 
     const [checked, setChecked] = useState(false)
 
@@ -39,4 +39,4 @@ const Price = ({ sendDataToParent }) => {
         </div>
     )
 }
-export default Price
+export default SizePrice

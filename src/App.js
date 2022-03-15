@@ -1,17 +1,25 @@
 
 import './Components/css/Style.css'
 import './App.css'
-import Test from './Components/Detail_Product.js'
-import { BrowserRouter,Route } from "react-router-dom";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { render } from "react-dom";
+import {
+  Routes,
+  Route,
+} from "react-router-dom";
+import DetailProduct from './Components/Detail_Product.js'
+
 function App() {
   return (
     <div className="App">
-
-      <Test />
+        <Routes>
+        <Route path="/product/:slug" element={<DetailProduct />} />
+        </Routes>
     </div>
-   
+
   );
- 
+
 }
 
 export default App;

@@ -1,20 +1,24 @@
 import React from "react";
 import ReactDOM from 'react-dom';
-import Price from "./Size_Product";
+import SizePrice from "./Size_Product";
 import { useState, useEffect } from 'react';
-
+import axios from 'axios';
 import { BsFillFileTextFill } from "react-icons/bs";
 import { FaPlus, FaMinus } from "react-icons/fa";
+import { useParams } from "react-router-dom";
 
-const Test = () => {
+const DetailProduct = () => {
 
     const [count, setCount] = useState(1)
     const [description, setDescription] = useState('')
     const [carts, setCarts] = useState([])
     const [cart, setCart] = useState()
     const [drive, setDrive] = useState([])
+    const [api, setApi] = useState([])
+    const { slug } = useParams()
     const price = 5000
     const priceTotal = drive.name == null ? (price * count) : price * count + (drive.sizePrice)
+
     const arrayCars = {
         currentPriceProduct: price,
         name_product: "Chanh Xã Mật Ong",
@@ -22,15 +26,12 @@ const Test = () => {
         description: description,
         priceTotal: priceTotal,
         quanityProduct: count,
-        sizePrice: drive.name,
-        sizePrice: drive.sizePrice
+        sizeName: drive.name,
+        sizePrice: drive.sizePrice,
     }
-    const sendDataToParent = (index) => { // the callback. Use a better name
-        console.log(index);
+    const sendDataToParent = (index) => {
         setDrive(index);
     };
-    useEffect(() => {
-    }, [drive])
     const onClickSessions = () => {
 
         setCarts(prev => {
@@ -45,7 +46,20 @@ const Test = () => {
         setCount(1)
         setDescription('')
     }
+    useEffect(() => {
+        axios.get(`https://sever-coffeehouse.herokuapp.com/product/${slug}`)
+            .then(res => {
+                setApi(res.data)
+                return res.data
+            })
+            .then(data => {
+                console.log(data)
+            })
 
+            .catch(error => console.log(error));
+
+    }, [])
+    
     return (
 
         <div className="pd-header">
@@ -108,7 +122,7 @@ const Test = () => {
                                             value={description} onChange={e => setDescription(e.target.value)} placeholder="Ghi chú cho món tại đây" />
                                     </div>
                                 </div>
-                                <Price sendDataToParent={sendDataToParent} />
+                                <SizePrice sendDataToParent={sendDataToParent} />
                                 <button type="submit" className="btn btn-color-primary w-100 mt-4"
                                     id="btn_addToCart" onClick={onClickSessions}>
                                     {
@@ -127,4 +141,4 @@ const Test = () => {
     )
 }
 
-export default Test
+export default DetailProduct
