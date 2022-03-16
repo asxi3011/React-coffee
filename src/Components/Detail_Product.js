@@ -1,6 +1,5 @@
 import React from "react";
-import ReactDOM from 'react-dom';
-import SizePrice from "./Size_Product";
+
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { BsFillFileTextFill } from "react-icons/bs";
@@ -10,28 +9,27 @@ import { useParams } from "react-router-dom";
 const DetailProduct = () => {
 
     const [count, setCount] = useState(1)
-    const [description, setDescription] = useState('')
+    const [notes, setNote] = useState([])
+    const [sizes,setSizes]=useState([])
     const [carts, setCarts] = useState([])
-    const [cart, setCart] = useState()
+    const [name_products, setNameProducts] = useState([])
+    const [imgs, setImgs] = useState([])
+    const [prices, setprices] = useState([])
+    const [description, setDescription] = useState([])
     const [drive, setDrive] = useState([])
-    const [api, setApi] = useState([])
     const { slug } = useParams()
-    const price = 5000
-    const priceTotal = drive.name == null ? (price * count) : price * count + (drive.sizePrice)
-
+    const priceTotal = drive.name == null ? (prices * count) : prices * count + (drive.sizePrice)
     const arrayCars = {
-        currentPriceProduct: price,
+        currentPriceProduct: prices,
         name_product: "Chanh Xã Mật Ong",
-        priceTotal: price * count,
-        description: description,
+        priceTotal: prices * count,
+        note: notes,
         priceTotal: priceTotal,
         quanityProduct: count,
         sizeName: drive.name,
         sizePrice: drive.sizePrice,
     }
-    const sendDataToParent = (index) => {
-        setDrive(index);
-    };
+  
     const onClickSessions = () => {
 
         setCarts(prev => {
@@ -49,17 +47,19 @@ const DetailProduct = () => {
     useEffect(() => {
         axios.get(`https://sever-coffeehouse.herokuapp.com/product/${slug}`)
             .then(res => {
-                setApi(res.data)
-                return res.data
-            })
-            .then(data => {
-                console.log(data)
-            })
 
-            .catch(error => console.log(error));
+                setprices(res.data.product.priceStandard)
+                setDescription(res.data.product.descriptionProduct)
+                setNameProducts(res.data.product.nameProduct)
+                setImgs(res.data.product.imageRepresent)
+                setSizes(res.data.size)
+            })
+           
 
     }, [])
-    
+
+console.log(sizes.value)
+
     return (
 
         <div className="pd-header">
@@ -71,26 +71,26 @@ const DetailProduct = () => {
 
                             <div className="col-6">
                                 <div className="details-image-info-product">
-                                    <img src="https://product.hstatic.net/1000075078/product/tra-dao-cam-xa_668678_400x400_207c526c987c4026877ebae748c62afd_large.jpg" alt="" />
+                                    <img src={`https://sever-coffeehouse.herokuapp.com/uploads/${imgs}`} alt="" />
                                 </div>
                                 <div className="d-flex gap-3 justify-content-center">
                                     <div className="list-image-details-info-product mt-2 ">
                                         <div>
-                                            <img src="https://product.hstatic.net/1000075078/product/tra-dao-cam-xa_668678_400x400_207c526c987c4026877ebae748c62afd_large.jpg" alt="" />
+                                            <img src={`https://sever-coffeehouse.herokuapp.com/uploads/${imgs}`} alt="" />
 
                                         </div>
                                     </div>
                                 </div>
-                                <p className="mt-4"> Một sự kết hợp tinh tế giữa vị đắng cà phê Espresso nguyên chất hòa quyện cùng vị sữa nóng ngọt ngào, bên trên là một lớp kem mỏng nhẹ tạo nên một tách cà phê hoàn hảo về hương vị lẫn nhãn quan.
+                                <p className="mt-4">{description}
                                 </p>
                             </div>
 
                             <div className="col-6">
-                                <h2 id="name_product" className="d-block price-size-show fw-bold"   >Chanh xã mật ong </h2>
+                                <h2 id="name_product" className="d-block price-size-show fw-bold"   >{name_products}</h2>
                                 <div className="d-flex justify-content-between align-items-center">
                                     <div>
                                         <span id=""
-                                            className="details-price-prodcut">{price.toLocaleString('vi-VN')}đ</span>
+                                            className="details-price-prodcut">{prices.toLocaleString('vi-VN')}đ</span>
                                         <span id="details-price-product" className="details-price-prodcut"
                                             hidden></span>
                                     </div>
@@ -110,7 +110,7 @@ const DetailProduct = () => {
                                             <FaPlus className="fas fa-plus text-white"></FaPlus></button>
                                     </div>
                                 </div>
-
+                               
                                 <div>
                                     <div className="input-group mt-4">
                                         <div className="input-group-prepend">
@@ -119,10 +119,38 @@ const DetailProduct = () => {
                                             </div>
                                         </div>
                                         <input type="text" className="form-control" id="inlineFormInputGroup"
-                                            value={description} onChange={e => setDescription(e.target.value)} placeholder="Ghi chú cho món tại đây" />
+                                            value={notes} onChange={e => setNote(e.target.value)} placeholder="Ghi chú cho món tại đây" />
                                     </div>
                                 </div>
-                                <SizePrice sendDataToParent={sendDataToParent} />
+
+                                <div className="mt-4 bd-size">
+                                    <div className="bg-border ">Chọn size (BẮT BUỘC)</div>
+                                    <div className="">
+                                        <div className="d-flex justify-content-evenly p-2">
+
+                                            <div className="d-flex align-items-center gap-3" >
+
+                                                <input className="form-check-input rad-primary" id="sizePrice" type="radio" name="sizePrice"
+                                                //   value={size.id}   onChange={e=>{
+                                                //         setChecked(e.target.value)
+                                                //         sendDataToParent(size)
+                                                //         e.target.value=null
+                                                //     }}
+
+
+                                                />
+                                                <div>
+                                                    <label className="d-block" >{sizes.name}</label>
+                                                    <label className="d-block price-size-show"
+                                                    > đ</label>
+                                                    <label className="price-size" hidden>s</label>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
                                 <button type="submit" className="btn btn-color-primary w-100 mt-4"
                                     id="btn_addToCart" onClick={onClickSessions}>
                                     {

@@ -2,8 +2,7 @@
 import './Components/css/Style.css'
 import './App.css'
 import React from 'react';
-import ReactDOM from 'react-dom';
-import { render } from "react-dom";
+
 import {
   Routes,
   Route,
