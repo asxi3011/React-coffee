@@ -1,12 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+
+import './Components/css/Style.css'
+import './App.css'
+import React from 'react';
+
+import {
+  Routes,
+  Route,
+} from "react-router-dom";
+import DetailProduct from './Components/Detail_Product.js'
 
 function App() {
   return (
     <div className="App">
-          <h1>Đây là trang web người dùng nhóm 9</h1>
+
+        <Routes>
+        <Route path="/product/:slug" element={<DetailProduct />} />
+        </Routes>
+
     </div>
+
   );
+
 }
 
 export default App;
