@@ -12,9 +12,11 @@ import DetailProduct from './Components/Detail_Product.js'
 function App() {
   return (
     <div className="App">
+
         <Routes>
         <Route path="/product/:slug" element={<DetailProduct />} />
         </Routes>
+
     </div>
 
   );
