@@ -1,26 +1,42 @@
 import React from "react";
-
+import { ToastContainer, toast } from 'react-toastify'
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+
 import { BsFillFileTextFill } from "react-icons/bs";
 import { FaPlus, FaMinus } from "react-icons/fa";
 import { useParams } from "react-router-dom";
+import 'react-toastify/dist/ReactToastify.css';
 
 const DetailProduct = () => {
+    let customToast = () =>
+        toast.success('Chọn món thành công',
+        {
+            autoClose:500,
+            draggable: true,
+            hideProgressBar: true,
+            
+        });
+
 
     const [count, setCount] = useState(1)
     const [notes, setNote] = useState([])
-    const [sizes,setSizes]=useState([])
+    const [sizes, setSizes] = useState([])
     const [carts, setCarts] = useState([])
     const [name_products, setNameProducts] = useState([])
     const [imgs, setImgs] = useState("")
+    const [ids, setIds] = useState([])
     const [prices, setprices] = useState(0)
     const [description, setDescription] = useState("")
     const [checked, setChecked] = useState({});
-    const [priceTotal,setPriceTotal] = useState(0);
+    const [priceTotal, setPriceTotal] = useState(0);
     const { slug } = useParams()
-    useEffect(()=>{
-        setCarts( {
+    const [show, setShow] = useState(false);
+
+
+    useEffect(() => {
+        setCarts({
+            idProduct: ids,
             currentPriceProduct: prices,
             name_product: name_products,
             priceTotal: prices * count,
@@ -30,67 +46,72 @@ const DetailProduct = () => {
             sizeName: checked.name,
             sizePrice: Number(checked.value),
         })
-    },[checked,priceTotal,count]) // Chỉnh thay đổi giỏ hàng
-    useEffect(()=>{
-        setPriceTotal(()=>{
+    }, [checked, priceTotal, count]) // Chỉnh thay đổi giỏ hàng
+    useEffect(() => {
+        setPriceTotal(() => {
             return count * (prices + Number(checked.value))
         });
-    },[checked,count]) // Chỉnh tổng giá tiền
-    const onClickSessions = () => {
+    }, [checked, count]) // Chỉnh tổng giá tiền
+    function onClickSessions() {
         const arrayP = JSON.parse(localStorage.getItem('arrayCarts')) || [];
         const countPlus = JSON.parse(localStorage.getItem('quanityProduct') || 0)
         arrayP.push(carts)
-        localStorage.setItem('arrayCarts',JSON.stringify(arrayP))
+        localStorage.setItem('arrayCarts', JSON.stringify(arrayP))
         localStorage.setItem('quanityProduct', count + countPlus)
         setCount(1)
         setNote('');
-    } // Sự kiện thêm vào sesssions 
- 
-    const sizeComponent = (sizes)=>{
-        return(
-            <div className="mt-4 bd-size">
-                                    <div className="bg-border ">Chọn size (BẮT BUỘC)</div>
-                                    <div className="">
-                                        <div className="d-flex justify-content-evenly p-2">
-                                            {sizes.map((size,index)=>
-                                                <div key={index} className="d-flex align-items-center gap-3" >
+        customToast()
 
-                                                    <input className="form-check-input rad-primary" id={`sizePrice${index}`} type="radio" name={size.name}
-                                                    checked={checked.name===size.name} value={size.value}   onChange={()=>{                                                                                                              
-                                                            setChecked({name:size.name,value:size.value})
-                                                        }}
-                                                    />
-                                                    <div>
-                                                        <label htmlFor={`sizePrice${index}`} className="d-block" >{size.name}</label>
-                                                        <label htmlFor={`sizePrice${index}`} className="d-block price-size-show"
-                                                        >{Number(size.value).toLocaleString('vi-VN')} đ</label>
-                                                        <label className="price-size" hidden>s</label>
-                                                    </div>
-                                                </div>
-                                            )}
-                                        </div>
-                                    </div>
+    } // Sự kiện thêm vào sesssions 
+
+    const sizeComponent = (sizes) => {
+        return (
+
+            <div className="mt-4 bd-size">
+                <div className="bg-border ">Chọn size (BẮT BUỘC)</div>
+                <div className="">
+                    <div className="d-flex justify-content-evenly p-2">
+                        {sizes.map((size, index) =>
+                            <div key={index} className="d-flex align-items-center gap-3" >
+
+                                <input className="form-check-input rad-primary" id={`sizePrice${index}`} type="radio" name={size.name}
+                                    checked={checked.name === size.name} value={size.value} onChange={() => {
+                                        setChecked({ name: size.name, value: size.value })
+                                    }}
+                                />
+
+                                <div>
+                                    <label htmlFor={`sizePrice${index}`} className="d-block" >{size.name}</label>
+                                    <label htmlFor={`sizePrice${index}`} className="d-block price-size-show"
+                                    >{Number(size.value).toLocaleString('vi-VN')} đ</label>
+                                    <label className="price-size" hidden>s</label>
                                 </div>
+                            </div>
+                        )}
+                    </div>
+                </div>
+            </div>
         )
     } // Componet Size
     useEffect(() => {
-    
+
         axios.get(`https://sever-coffeehouse.herokuapp.com/product/${slug}`)
             .then(res => {
-                console.log(123);
+                setIds(res.data.product._id)
                 setImgs(res.data.product.imageRepresent)
                 setprices(res.data.product.priceStandard)
                 setPriceTotal(res.data.product.priceStandard);
                 setDescription(res.data.product.descriptionProduct)
                 setNameProducts(res.data.product.nameProduct)
                 setSizes(res.data.size)
-                setChecked({name:res.data.size[0].name,value:res.data.size[0].value})
+                setChecked({ name: res.data.size[0].name, value: res.data.size[0].value })
             })
     }, []) // Lấy dữ liệu từ API
 
     return (
         <div className="pd-header">
             <div className="container">
+
                 <div className="pd-w-200">
                     <div className="bd-product my-5">
                         <div className="row">
@@ -135,7 +156,7 @@ const DetailProduct = () => {
                                             <FaPlus className="fas fa-plus text-white"></FaPlus></button>
                                     </div>
                                 </div>
-                               
+
                                 <div>
                                     <div className="input-group mt-4">
                                         <div className="input-group-prepend">
@@ -151,12 +172,16 @@ const DetailProduct = () => {
                                 {sizeComponent(sizes)}
 
                                 <button type="submit" className="btn btn-color-primary w-100 mt-4"
-                                    id="btn_addToCart" onClick={onClickSessions}>
+                                    id="btn_addToCart" onClick={onClickSessions} >
+
+
                                     {
                                         (priceTotal).toLocaleString('vi-VN')
                                     }đ - Thêm vào giỏ hàng
-                                </button>
 
+                                </button>
+                                <ToastContainer 
+                                />
                             </div>
                         </div>
 
@@ -164,6 +189,8 @@ const DetailProduct = () => {
                 </div>
             </div>
         </div>
+
+
 
     )
 }
