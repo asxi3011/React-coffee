@@ -13,62 +13,87 @@ const DetailProduct = () => {
     const [sizes,setSizes]=useState([])
     const [carts, setCarts] = useState([])
     const [name_products, setNameProducts] = useState([])
-    const [imgs, setImgs] = useState([])
-    const [prices, setprices] = useState([])
-    const [description, setDescription] = useState([])
-    const [drive, setDrive] = useState([])
+    const [imgs, setImgs] = useState("")
+    const [prices, setprices] = useState(0)
+    const [description, setDescription] = useState("")
+    const [checked, setChecked] = useState({});
+    const [priceTotal,setPriceTotal] = useState(0);
     const { slug } = useParams()
-    const priceTotal = drive.name == null ? (prices * count) : prices * count + (drive.sizePrice)
-    const arrayCars = {
-        currentPriceProduct: prices,
-        name_product: "Chanh Xã Mật Ong",
-        priceTotal: prices * count,
-        note: notes,
-        priceTotal: priceTotal,
-        quanityProduct: count,
-        sizeName: drive.name,
-        sizePrice: drive.sizePrice,
-    }
-  
-    const onClickSessions = () => {
-
-        setCarts(prev => {
-            const newArray = [...prev, arrayCars]
-            const arrayCart = JSON.stringify(newArray)
-            localStorage.setItem('arrayCars', arrayCart)
-            return newArray
+    useEffect(()=>{
+        setCarts( {
+            currentPriceProduct: prices,
+            name_product: name_products,
+            priceTotal: prices * count,
+            note: notes,
+            priceTotal: priceTotal,
+            quanityProduct: count,
+            sizeName: checked.name,
+            sizePrice: Number(checked.value),
         })
-
-        const countPlus = JSON.parse(localStorage.getItem('quanityProduct'))
+    },[checked,priceTotal,count]) // Chỉnh thay đổi giỏ hàng
+    useEffect(()=>{
+        setPriceTotal(()=>{
+            return count * (prices + Number(checked.value))
+        });
+    },[checked,count]) // Chỉnh tổng giá tiền
+    const onClickSessions = () => {
+        const arrayP = JSON.parse(localStorage.getItem('arrayCarts')) || [];
+        const countPlus = JSON.parse(localStorage.getItem('quanityProduct') || 0)
+        arrayP.push(carts)
+        localStorage.setItem('arrayCarts',JSON.stringify(arrayP))
         localStorage.setItem('quanityProduct', count + countPlus)
         setCount(1)
-        setDescription('')
-    }
+        setNote('');
+    } // Sự kiện thêm vào sesssions 
+ 
+    const sizeComponent = (sizes)=>{
+        return(
+            <div className="mt-4 bd-size">
+                                    <div className="bg-border ">Chọn size (BẮT BUỘC)</div>
+                                    <div className="">
+                                        <div className="d-flex justify-content-evenly p-2">
+                                            {sizes.map((size,index)=>
+                                                <div key={index} className="d-flex align-items-center gap-3" >
+
+                                                    <input className="form-check-input rad-primary" id={`sizePrice${index}`} type="radio" name={size.name}
+                                                    checked={checked.name===size.name} value={size.value}   onChange={()=>{                                                                                                              
+                                                            setChecked({name:size.name,value:size.value})
+                                                        }}
+                                                    />
+                                                    <div>
+                                                        <label htmlFor={`sizePrice${index}`} className="d-block" >{size.name}</label>
+                                                        <label htmlFor={`sizePrice${index}`} className="d-block price-size-show"
+                                                        >{Number(size.value).toLocaleString('vi-VN')} đ</label>
+                                                        <label className="price-size" hidden>s</label>
+                                                    </div>
+                                                </div>
+                                            )}
+                                        </div>
+                                    </div>
+                                </div>
+        )
+    } // Componet Size
     useEffect(() => {
+    
         axios.get(`https://sever-coffeehouse.herokuapp.com/product/${slug}`)
             .then(res => {
-
+                console.log(123);
+                setImgs(res.data.product.imageRepresent)
                 setprices(res.data.product.priceStandard)
+                setPriceTotal(res.data.product.priceStandard);
                 setDescription(res.data.product.descriptionProduct)
                 setNameProducts(res.data.product.nameProduct)
-                setImgs(res.data.product.imageRepresent)
                 setSizes(res.data.size)
+                setChecked({name:res.data.size[0].name,value:res.data.size[0].value})
             })
-           
-
-    }, [])
-
-console.log(sizes.value)
+    }, []) // Lấy dữ liệu từ API
 
     return (
-
         <div className="pd-header">
             <div className="container">
                 <div className="pd-w-200">
                     <div className="bd-product my-5">
-
                         <div className="row">
-
                             <div className="col-6">
                                 <div className="details-image-info-product">
                                     <img src={`https://sever-coffeehouse.herokuapp.com/uploads/${imgs}`} alt="" />
@@ -123,33 +148,7 @@ console.log(sizes.value)
                                     </div>
                                 </div>
 
-                                <div className="mt-4 bd-size">
-                                    <div className="bg-border ">Chọn size (BẮT BUỘC)</div>
-                                    <div className="">
-                                        <div className="d-flex justify-content-evenly p-2">
-
-                                            <div className="d-flex align-items-center gap-3" >
-
-                                                <input className="form-check-input rad-primary" id="sizePrice" type="radio" name="sizePrice"
-                                                //   value={size.id}   onChange={e=>{
-                                                //         setChecked(e.target.value)
-                                                //         sendDataToParent(size)
-                                                //         e.target.value=null
-                                                //     }}
-
-
-                                                />
-                                                <div>
-                                                    <label className="d-block" >{sizes.name}</label>
-                                                    <label className="d-block price-size-show"
-                                                    > đ</label>
-                                                    <label className="price-size" hidden>s</label>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
+                                {sizeComponent(sizes)}
 
                                 <button type="submit" className="btn btn-color-primary w-100 mt-4"
                                     id="btn_addToCart" onClick={onClickSessions}>
