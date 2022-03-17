@@ -4,8 +4,8 @@ import { useEffect } from "react"
 
 
 function Cart() {
+    const local = localStorage.getItem("quanityProduct")
     useEffect(() => {
-        const local = localStorage.getItem("quantity")
         const test = document.getElementById("soLuong_Cart")
         const test1 = document.querySelector(".quantities-cart")
         if (local >= 1) {
@@ -14,7 +14,7 @@ function Cart() {
         } else {
             test1.classList.add("d-none");
         }
-    })
+    },[local])
 
     return (
         <>

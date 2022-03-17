@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from "react"
+import { React, useState} from "react"
 import { Link } from "react-router-dom";
 import { Button, Modal, Container, Row, Col } from 'react-bootstrap';
 import Cart from './Cart'
