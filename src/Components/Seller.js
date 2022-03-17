@@ -17,7 +17,7 @@ function Seller() {
     return (
         <>
             {posts.map(post => (
-                <div className="col-lg-2 col-md-4 col-sm-12 my-2">
+                <div key={post._id} className="col-lg-2 col-md-4 col-sm-12 my-2">
                     <div className="border-product">
                         <Link to={`/product/${post.slug}/`} className="a-none text-dark">
                             <div className="">
