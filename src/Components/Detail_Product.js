@@ -32,7 +32,7 @@ const DetailProduct = () => {
             sizeName: checked.name,
             sizePrice: Number(checked.value),
         })
-    }, [checked, priceTotal, count]) // Chỉnh thay đổi giỏ hàng
+    }, [checked, priceTotal,carts.length, count]) // Chỉnh thay đổi giỏ hàng
     useEffect(() => {
         setPriceTotal(() => {
             return count * (prices + Number(checked.value))
@@ -45,7 +45,9 @@ const DetailProduct = () => {
         localStorage.setItem('arrayCarts', JSON.stringify(arrayP))
         localStorage.setItem('countQuanity', count + countPlus)
         setCount(1)
+        console.log(count)
         setNote('');
+        window.location.reload()
     };// Sự kiện thêm vào sesssions 
 
     const sizeComponent = (sizes) => {

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useState, useEffect } from "react"
 import DetailProduct from './Detail_Product'
 function Cart() {
-    const [local, setLocal] = useState(JSON.parse(window.localStorage.getItem('countQuanity')))
+    const [local, setLocal] = useState(localStorage.getItem('countQuanity'))
     // const [count, setCount] = useState(0);
     useEffect(() => {
         console.log('render...')
@@ -20,7 +20,7 @@ function Cart() {
     }, [local])
     function myFuntion() {
         window.onstorage = () => {
-            setLocal(JSON.parse(window.localStorage.getItem('countQuanity')));
+            setLocal(localStorage.getItem('countQuanity'));
         };
     }
     console.log(local)
