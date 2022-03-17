@@ -1,19 +1,27 @@
 import React, { useEffect, useState } from 'react';
 import './style.css';
-import FindOut from './FindOut';
+// import FindOut from './FindOut';
 import NotFound from './NotFound';
 import Normal from './Normal';
+import axios from 'axios';
 
 function GetOder(){
-    const [id,setId]= useState({})
-    const Check = (id) =>{
-        fetch(`https://sever-coffeehouse.herokuapp.com/getOder?id=${id}`)
-        .then(res=>res.json())
-        .then(Oder=>{
-            console.log(Oder)
+    const [id,setId]= useState([])
+    // const[datas,setData]=useState([])
+
+
+
+
+    // const Check = (id) =>{
+    //     e.preventDefault()
+    //     fetch(`https://sever-coffeehouse.herokuapp.com/getOrder?id=${id}`)
+    //     .then(res=>res.json())
+    //     .then(Oder=>{
+    //         console.log(Oder)
+    //         setData(Oder)  
             
-        })
-    }
+    //     })
+    // }
 
     ///////
   
@@ -33,15 +41,17 @@ function GetOder(){
     // }
     // },[])
     
-    // const Check = (e)=>{
-    //     e.preventDefault()
-    //     fetch(`https://sever-coffeehouse.herokuapp.com/getOrder?id=${id}`)
-    //     .then(res=>res.json())
-    //     .then(Order=>{   
+    const Check = (e)=>{
+        // e.preventDefault()
+        fetch(`https://sever-coffeehouse.herokuapp.com/getOrder?id=${id}`)
+        .then(res=>res.json())
+        .then(Order=>{   
+            console.log(Order)
+            
           
-    //       setData(Order)    
-    //     })  
-    // }
+        //   setData(Order)    
+        })  
+    }
 
     return(
         <div className="container-fluid">
@@ -58,8 +68,8 @@ function GetOder(){
                 </div>
             </form>
 
-            {/* {id  && data ? "" : <Normal/> }
-            {data.status === 'fail' ? <NotFound/>  :<FindOut /> } */}
+            {/* {id  && datas ? "" : <Normal/> }
+            {datas.status === 'fail' ? <NotFound/>  :<FindOut/> } */}
      
          </div>            
         )    

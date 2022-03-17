@@ -10,9 +10,6 @@ const [posts, setPost] = useState([])
     console.log(order)
 
 
-
-
-
 return(
     <div>
             <div className="container-fluid">   
