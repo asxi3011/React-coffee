@@ -24,12 +24,14 @@ function App() {
           <Route path="/:slug" element={<ProductInCategory />} />
     
           <Route path="/product/:slug" element={<DetailProduct />} />
- 
+          <Route path="/product/:slug" element={<DetailProduct />} />
         </Routes>
         
         <Footer />
       </div>
     </GlobalStyles>
+
+
   );
 }
 

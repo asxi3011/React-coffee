@@ -1,13 +1,24 @@
-import React, { useRef } from "react";
-
-import { useState, useEffect, useCallback } from 'react';
+import React from "react";
+import { ToastContainer, toast } from 'react-toastify'
+import { useState, useEffect } from 'react';
 import axios from 'axios';
+
 import { BsFillFileTextFill } from "react-icons/bs";
 import { FaPlus, FaMinus } from "react-icons/fa";
 import { useParams } from "react-router-dom";
 import Cart from "./Cart"
+import 'react-toastify/dist/ReactToastify.css';
 
 const DetailProduct = () => {
+    let customToast = () =>
+        toast.success('Chọn món thành công',
+        {
+            autoClose:500,
+            draggable: true,
+            hideProgressBar: true,
+            
+        });
+
 
     const [count, setCount] = useState(1)
     const [notes, setNote] = useState([])
@@ -15,14 +26,18 @@ const DetailProduct = () => {
     const [carts, setCarts] = useState([])
     const [name_products, setNameProducts] = useState([])
     const [imgs, setImgs] = useState("")
+    const [ids, setIds] = useState([])
     const [prices, setprices] = useState(0)
     const [description, setDescription] = useState("")
     const [checked, setChecked] = useState({});
     const [priceTotal, setPriceTotal] = useState(0);
     const { slug } = useParams()
+    const [show, setShow] = useState(false);
+
 
     useEffect(() => {
         setCarts({
+            idProduct: ids,
             currentPriceProduct: prices,
             name_product: name_products,
             priceTotal: prices * count,
@@ -42,7 +57,7 @@ const DetailProduct = () => {
         const arrayP = JSON.parse(localStorage.getItem('arrayCarts')) || [];
         const countPlus = JSON.parse(localStorage.getItem('countQuanity') || 0)
         arrayP.push(carts)
-        localStorage.setItem('arrayCarts', JSON.stringify(arrayP))
+        localStorage.setItem('arrayCart', JSON.stringify(arrayP))
         localStorage.setItem('countQuanity', count + countPlus)
         setCount(1)
         console.log(count)
@@ -81,6 +96,7 @@ const DetailProduct = () => {
 
         axios.get(`https://sever-coffeehouse.herokuapp.com/product/${slug}`)
             .then(res => {
+                setIds(res.data.product._id)
                 setImgs(res.data.product.imageRepresent)
                 setprices(res.data.product.priceStandard)
                 setPriceTotal(res.data.product.priceStandard);
@@ -92,20 +108,20 @@ const DetailProduct = () => {
     }, []) // Lấy dữ liệu từ API
 
     return (
-        <>
-            <div className="pd-header">
-                <div className="container">
-                    <div className="pd-w-200">
-                        <div className="bd-product my-5">
-                            <div className="row">
-                                <div className="col-6">
-                                    <div className="details-image-info-product">
-                                        <img src={`https://sever-coffeehouse.herokuapp.com/uploads/${imgs}`} alt="" />
-                                    </div>
-                                    <div className="d-flex gap-3 justify-content-center">
-                                        <div className="list-image-details-info-product mt-2 ">
-                                            <div>
-                                                <img src={`https://sever-coffeehouse.herokuapp.com/uploads/${imgs}`} alt="" />
+        <div className="pd-header">
+            <div className="container">
+
+                <div className="pd-w-200">
+                    <div className="bd-product my-5">
+                        <div className="row">
+                            <div className="col-6">
+                                <div className="details-image-info-product">
+                                    <img src={`https://sever-coffeehouse.herokuapp.com/uploads/${imgs}`} alt="" />
+                                </div>
+                                <div className="d-flex gap-3 justify-content-center">
+                                    <div className="list-image-details-info-product mt-2 ">
+                                        <div>
+                                            <img src={`https://sever-coffeehouse.herokuapp.com/uploads/${imgs}`} alt="" />
 
                                             </div>
                                         </div>
@@ -154,21 +170,27 @@ const DetailProduct = () => {
 
                                     {sizeComponent(sizes)}
 
-                                    <button type="submit" className="btn btn-color-primary w-100 mt-4"
-                                        id="btn_addToCart" onClick={onClickSessions}>
-                                        {
-                                            (priceTotal).toLocaleString('vi-VN')
-                                        }đ - Thêm vào giỏ hàng
-                                    </button>
+                                <button type="submit" className="btn btn-color-primary w-100 mt-4"
+                                    id="btn_addToCart" onClick={onClickSessions} >
 
-                                </div>
+
+                                    {
+                                        (priceTotal).toLocaleString('vi-VN')
+                                    }đ - Thêm vào giỏ hàng
+
+                                </button>
+                                <ToastContainer 
+                                />
                             </div>
 
                         </div>
                     </div>
                 </div>
             </div>
-        </>
+        </div>
+
+
+
     )
 }
 
