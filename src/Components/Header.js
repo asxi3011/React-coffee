@@ -4,7 +4,7 @@ import { Button, Modal, Container, Row, Col } from 'react-bootstrap';
 import Cart from './Cart'
 function Header() {
     const [show, setShow] = useState(false);
-
+    console.log("Xuất header")
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
     return (

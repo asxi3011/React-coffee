@@ -34,7 +34,6 @@ const DetailProduct = () => {
     const { slug } = useParams()
     const [show, setShow] = useState(false);
 
-
     useEffect(() => {
         setCarts({
             idProduct: ids,
@@ -62,6 +61,7 @@ const DetailProduct = () => {
         setCount(1)
         console.log(count)
         setNote('');
+        customToast();
         window.location.reload()
     };// Sự kiện thêm vào sesssions 
 

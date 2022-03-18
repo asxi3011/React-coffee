@@ -1,19 +1,18 @@
 
 import { Link } from "react-router-dom";
-import { React,useState, useEffect } from "react"
+import { React,useState, useLayoutEffect,memo } from "react"
 import axios from 'axios'
 
 function Category() {
     const [posts, setPost] = useState([])
-    useEffect(() => {
+    useLayoutEffect(() => {
         axios.get('https://sever-coffeehouse.herokuapp.com/getCategories')
             .then((response) => {
+                console.log("Lấy dữ liệu cateogry");
                 setPost(response.data.dataCategories);
             });
     }, [])
     if (!posts) return null;
-    console.log(posts)
-
     return (
         <>
             {posts.map(post => (
@@ -36,4 +35,4 @@ function Category() {
     )
 }
 
-export default Category
+export default memo(Category)

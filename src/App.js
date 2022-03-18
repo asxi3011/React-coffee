@@ -12,21 +12,20 @@ import ProductInCategory from './Components/ProductInCategory.js'
 import './Components/css/Style.css'
 import './App.css'
 import DetailProduct from './Components/Detail_Product.js'
+import Slider from './Components/Slider.js'
 function App() {
   return (
     <GlobalStyles>
       <div className="App">
-        <Header />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/news" element={<News />} />
-          <Route path="/news/:slug" element={<NewId />} />
-          <Route path="/:slug" element={<ProductInCategory />} />
-    
-          <Route path="/product/:slug" element={<DetailProduct />} />
-          <Route path="/product/:slug" element={<DetailProduct />} />
-        </Routes>
-        
+        <Header/>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/news" element={<News />} />
+            <Route path="/news/:slug" element={<NewId />} />
+            <Route path="/:slug" element={<ProductInCategory />} />
+            <Route path="/product/:slug" element={<DetailProduct />} />
+            <Route path="/product/:slug" element={<DetailProduct />} />
+          </Routes>
         <Footer />
       </div>
     </GlobalStyles>
