@@ -13,7 +13,12 @@ import './Components/css/Style.css'
 import './App.css'
 import DetailProduct from './Components/Detail_Product.js'
 import Slider from './Components/Slider.js'
+import Cart from './Components/Cart';
+import ShopingCart from './Components/ShopingCart';
+import ThongBao from './Components/ThongBao';
+
 function App() {
+  const local = localStorage.getItem("countQuanity")
   return (
     <GlobalStyles>
       <div className="App">
@@ -24,8 +29,9 @@ function App() {
             <Route path="/news/:slug" element={<NewId />} />
             <Route path="/:slug" element={<ProductInCategory />} />
             <Route path="/product/:slug" element={<DetailProduct />} />
-            <Route path="/product/:slug" element={<DetailProduct />} />
+            <Route path="/cart" element={local > 0 ? <ShopingCart/> : <ThongBao/>}/>
           </Routes>
+        
         <Footer />
       </div>
     </GlobalStyles>

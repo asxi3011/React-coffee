@@ -41,6 +41,7 @@ const DetailProduct = () => {
             name_product: name_products,
             priceTotal: prices * count,
             note: notes,
+            idProduct: ids,
             priceTotal: priceTotal,
             countQuanity: count,
             sizeName: checked.name,
@@ -53,10 +54,10 @@ const DetailProduct = () => {
         });
     }, [checked, count]) // Chỉnh tổng giá tiền
     const onClickSessions = () => {
-        const arrayP = JSON.parse(localStorage.getItem('arrayCarts')) || [];
+        const arrayP = JSON.parse(localStorage.getItem('arrayCart')) || [];
         const countPlus = JSON.parse(localStorage.getItem('countQuanity') || 0)
         arrayP.push(carts)
-        localStorage.setItem('arrayCart', JSON.stringify(arrayP))
+        localStorage.setItem('arrayCart',JSON.stringify(arrayP))
         localStorage.setItem('countQuanity', count + countPlus)
         setCount(1)
         console.log(count)
@@ -96,14 +97,15 @@ const DetailProduct = () => {
 
         axios.get(`https://sever-coffeehouse.herokuapp.com/product/${slug}`)
             .then(res => {
-                setIds(res.data.product._id)
+                
                 setImgs(res.data.product.imageRepresent)
                 setprices(res.data.product.priceStandard)
                 setPriceTotal(res.data.product.priceStandard);
                 setDescription(res.data.product.descriptionProduct)
                 setNameProducts(res.data.product.nameProduct)
                 setSizes(res.data.size)
-                setChecked({ name: res.data.size[0].name, value: res.data.size[0].value })
+                setIds(res.data.product._id)
+                setChecked({name:res.data.size[0].name,value:res.data.size[0].value})
             })
     }, []) // Lấy dữ liệu từ API
 
