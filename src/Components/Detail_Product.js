@@ -7,7 +7,7 @@ import { FaPlus, FaMinus } from "react-icons/fa";
 import { useParams } from "react-router-dom";
 
 const DetailProduct = () => {
-
+    const [ids, setIds] = useState([])
     const [count, setCount] = useState(1)
     const [notes, setNote] = useState([])
     const [sizes,setSizes]=useState([])
@@ -25,6 +25,7 @@ const DetailProduct = () => {
             name_product: name_products,
             priceTotal: prices * count,
             note: notes,
+            idProduct: ids,
             priceTotal: priceTotal,
             quanityProduct: count,
             sizeName: checked.name,
@@ -37,11 +38,11 @@ const DetailProduct = () => {
         });
     },[checked,count]) // Chỉnh tổng giá tiền
     const onClickSessions = () => {
-        const arrayP = JSON.parse(localStorage.getItem('arrayCarts')) || [];
-        const countPlus = JSON.parse(localStorage.getItem('quanityProduct') || 0)
+        const arrayP = JSON.parse(localStorage.getItem('arrayCart')) || [];
+        const countPlus = JSON.parse(localStorage.getItem('countQuanity') || 0)
         arrayP.push(carts)
-        localStorage.setItem('arrayCarts',JSON.stringify(arrayP))
-        localStorage.setItem('quanityProduct', count + countPlus)
+        localStorage.setItem('arrayCart',JSON.stringify(arrayP))
+        localStorage.setItem('countQuanity', count + countPlus)
         setCount(1)
         setNote('');
     } // Sự kiện thêm vào sesssions 
@@ -77,13 +78,14 @@ const DetailProduct = () => {
     
         axios.get(`https://sever-coffeehouse.herokuapp.com/product/${slug}`)
             .then(res => {
-                console.log(123);
+                
                 setImgs(res.data.product.imageRepresent)
                 setprices(res.data.product.priceStandard)
                 setPriceTotal(res.data.product.priceStandard);
                 setDescription(res.data.product.descriptionProduct)
                 setNameProducts(res.data.product.nameProduct)
                 setSizes(res.data.size)
+                setIds(res.data.product._id)
                 setChecked({name:res.data.size[0].name,value:res.data.size[0].value})
             })
     }, []) // Lấy dữ liệu từ API
