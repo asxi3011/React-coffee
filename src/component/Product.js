@@ -12,6 +12,10 @@ function Product(){
         axios.get(`https://sever-coffeehouse.herokuapp.com/getProducts`)
             .then((response) => {
                 setPost(response.data.dataProducts);
+
+
+          
+            
             });
     }, [])
    
