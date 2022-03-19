@@ -84,7 +84,7 @@ const DetailProduct = () => {
                                 <div>
                                     <label htmlFor={`sizePrice${index}`} className="d-block" >{size.name}</label>
                                     <label htmlFor={`sizePrice${index}`} className="d-block price-size-show"
-                                    >{Number(size.value).toLocaleString('')} đ</label>
+                                    >{Number(size.value).toLocaleString()} đ</label>
                                     <label className="price-size" hidden>s</label>
                                 </div>
                             </div>
@@ -138,7 +138,7 @@ const DetailProduct = () => {
                                     <div className="d-flex justify-content-between align-items-center">
                                         <div>
                                             <span id=""
-                                                className="details-price-prodcut">{prices.toLocaleString('')}đ</span>
+                                                className="details-price-prodcut">{prices.toLocaleString()}đ</span>
                                             <span id="details-price-product" className="details-price-prodcut"
                                                 hidden></span>
                                         </div>
@@ -178,7 +178,7 @@ const DetailProduct = () => {
 
 
                                     {
-                                        (priceTotal).toLocaleString('')
+                                        (priceTotal).toLocaleString()
                                     }đ - Thêm vào giỏ hàng
 
                                 </button>
