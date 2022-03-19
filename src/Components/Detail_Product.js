@@ -1,12 +1,12 @@
 import React from "react";
 import { ToastContainer, toast } from 'react-toastify'
-import { useState, useEffect } from 'react';
+import { useState, useEffect,createContext} from 'react';
 import axios from 'axios';
 
 import { BsFillFileTextFill } from "react-icons/bs";
 import { FaPlus, FaMinus } from "react-icons/fa";
 import { useParams } from "react-router-dom";
-import Cart from "./Cart"
+
 import 'react-toastify/dist/ReactToastify.css';
 
 const DetailProduct = () => {
@@ -15,11 +15,8 @@ const DetailProduct = () => {
         {
             autoClose:500,
             draggable: true,
-            hideProgressBar: true,
-            
+            hideProgressBar: true,            
         });
-
-
     const [count, setCount] = useState(1)
     const [notes, setNote] = useState([])
     const [sizes, setSizes] = useState([])
@@ -33,7 +30,9 @@ const DetailProduct = () => {
     const [priceTotal, setPriceTotal] = useState(0);
     const { slug } = useParams()
     const [show, setShow] = useState(false);
+    
 
+    const [countCart,setCountCart] = useState(true);
     useEffect(() => {
         setCarts({
             idProduct: ids,
@@ -62,8 +61,10 @@ const DetailProduct = () => {
         setCount(1)
         console.log(count)
         setNote('');
+
         customToast();
         window.location.reload()
+        
     };// Sự kiện thêm vào sesssions 
 
     const sizeComponent = (sizes) => {
@@ -83,7 +84,7 @@ const DetailProduct = () => {
                                 <div>
                                     <label htmlFor={`sizePrice${index}`} className="d-block" >{size.name}</label>
                                     <label htmlFor={`sizePrice${index}`} className="d-block price-size-show"
-                                    >{Number(size.value).toLocaleString("en-US", {style:"currency", currency:"VND"})} đ</label>
+                                    >{Number(size.value).toLocaleString('')} đ</label>
                                     <label className="price-size" hidden>s</label>
                                 </div>
                             </div>
@@ -97,7 +98,6 @@ const DetailProduct = () => {
 
         axios.get(`https://sever-coffeehouse.herokuapp.com/product/${slug}`)
             .then(res => {
-                
                 setImgs(res.data.product.imageRepresent)
                 setprices(res.data.product.priceStandard)
                 setPriceTotal(res.data.product.priceStandard);
@@ -110,6 +110,7 @@ const DetailProduct = () => {
     }, []) // Lấy dữ liệu từ API
 
     return (
+     
         <div className="pd-header">
             <div className="container">
 
@@ -137,7 +138,7 @@ const DetailProduct = () => {
                                     <div className="d-flex justify-content-between align-items-center">
                                         <div>
                                             <span id=""
-                                                className="details-price-prodcut">{prices.toLocaleString("en-US", {style:"currency", currency:"VND"})}đ</span>
+                                                className="details-price-prodcut">{prices.toLocaleString('')}đ</span>
                                             <span id="details-price-product" className="details-price-prodcut"
                                                 hidden></span>
                                         </div>
@@ -177,7 +178,7 @@ const DetailProduct = () => {
 
 
                                     {
-                                        (priceTotal).toLocaleString("en-US", {style:"currency", currency:"VND"})
+                                        (priceTotal).toLocaleString('')
                                     }đ - Thêm vào giỏ hàng
 
                                 </button>
@@ -190,7 +191,6 @@ const DetailProduct = () => {
                 </div>
             </div>
         </div>
-
 
 
     )

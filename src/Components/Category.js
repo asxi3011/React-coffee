@@ -1,6 +1,6 @@
 
 import { Link } from "react-router-dom";
-import { React,useState, useLayoutEffect,memo } from "react"
+import { React,memo } from "react"
 
 
 function Category({category,style,styleColor}) {

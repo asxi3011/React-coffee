@@ -9,17 +9,12 @@ import { useParams } from "react-router-dom";
 import GiaoHang from "./GiaoHang";
 import ThanhToan from "./ThanhToan";
 function ShopingCart(){
-  const [checked, setChecked] = useState({});
-  
+  const [checked, setChecked] = useState({});  
   const [arrayP,setarrayP] = useState(JSON.parse(localStorage.getItem('arrayCart')))
   const countPlus = JSON.parse(localStorage.getItem('countQuanity') || 0)
   // arrayP.push(carts)
   console.log(arrayP)
-  useEffect(()=>{
-    
-    
-
-  })
+ 
   const sizeComponent = (sizes)=>{
     return(
         <div className="mt-4 bd-size">
@@ -100,19 +95,7 @@ function ShopingCart(){
                               <input id="id_product" name="id_product" type="hidden" value="${id}">
       </div>`
   }
-  const getProduct=(id)=>{
-    
-    console.log("123")
-    axios.get(`https://sever-coffeehouse.herokuapp.com/getProduct?id=${id}`)
-            .then(res => {
-              console.log(res)
-              renderModalProduct(res.data.nameProduct,"",3000,3,res.data.size,res.data.imageRepresent,"",res.data._id)
-                
-            
-            })
-            
-
-  }
+  
   const renderlist=(array)=>{
     console.log()
     return(
@@ -120,12 +103,12 @@ function ShopingCart(){
                 {array.map((order,index)=>
                   <div key={index} className="col-12">
                         <div className="line-product d-flex align-items-center gap-2 my-2">
-                          <div className="btn btn-edit-product-cart " onClick={getProduct(order.idProduct)} index={0}>
+                          <div className="btn btn-edit-product-cart " onClick index={0}>
                             <i className="fas fa-pen color-primary" />
                           </div>
                           <div className="flex-grow-1">
                             <div className="fw-bold">
-                              {order.quanityProduct} x {order.name_product}
+                              {order.countQuanity} x {order.name_product}
                             </div>
                             <div>
                               Size : {order.sizeName}
@@ -251,10 +234,6 @@ function ShopingCart(){
 
   
 </div>
-   
-    
-    
-  
   )
 }
 

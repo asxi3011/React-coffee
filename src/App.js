@@ -19,10 +19,11 @@ import ShopingCart from './Components/ShopingCart';
 import ThongBao from './Components/ThongBao';
 import axios from 'axios'
 function App() {
-  const local = localStorage.getItem("countQuanity")
+  
   const [categorys, setCategorys] = useState([])
   const [news, setNews] = useState([])
   const [products,setProducts] = useState([]);
+  
   useEffect(async () => {
       const categorys = await axios.get('https://sever-coffeehouse.herokuapp.com/getCategories')
       const products = await  axios.get(`https://sever-coffeehouse.herokuapp.com/bestseller12`)
@@ -31,6 +32,7 @@ function App() {
       setNews(news.data.dataPosts);
       setProducts(products.data.dataBestseller);
   }, [])
+  //
   return (
     <GlobalStyles>
       <div className="App">
@@ -41,8 +43,8 @@ function App() {
             <Route path="/news/:slug" element={<NewId />} />
             <Route path="/:slug" element={<ProductInCategory categorys = {categorys}/>} />
             <Route path="/product/:slug" element={<DetailProduct />}/>
-            <Route path="/cart" element={local > 0 ? <ShopingCart/> : <ThongBao/>}/>
             <Route path="/tracuudonhang" element={<GetOrder/>}/>
+            <Route path="/cart" element={ <ShopingCart/>}/>
           </Routes>
         <Footer />
       </div>

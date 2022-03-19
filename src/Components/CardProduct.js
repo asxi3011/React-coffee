@@ -1,12 +1,11 @@
 import React from 'react'
 import { Link } from "react-router-dom";
-import { useState, useEffect } from "react"
-import axios from 'axios'
+
 
 
 function CardProduct({product}) {
     return (
-        <>
+        <> 
                 <div key={product._id} className="col-lg-2 col-md-4 col-sm-12 my-2">
                     <div className="border-product">
                         <Link to={`/product/${product.slug}/`} className="a-none text-dark">
