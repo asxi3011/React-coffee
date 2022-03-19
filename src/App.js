@@ -5,7 +5,6 @@ import GlobalStyles from './Components/GlobalStyles/index'
 import Header from './Components/Header'
 import Footer from './Components/Footer'
 import Home from './Components/Home'
-import News from './Components/News'
 import PageNews from './Components/PageNews'
 import NewId from './Components/NewId.js'
 import GetOrder from './Components/GetOrder.js'
@@ -13,10 +12,7 @@ import ProductInCategory from './Components/ProductInCategory.js'
 import './Components/css/Style.css'
 import './App.css'
 import DetailProduct from './Components/Detail_Product.js'
-import Slider from './Components/Slider.js'
-import Cart from './Components/Cart';
 import ShopingCart from './Components/ShopingCart';
-import ThongBao from './Components/ThongBao';
 import axios from 'axios'
 function App() {
   
