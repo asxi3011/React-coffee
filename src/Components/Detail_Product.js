@@ -57,14 +57,8 @@ const DetailProduct = () => {
         setCount(1)
         console.log(count)
         setNote('');
-<<<<<<< HEAD
-
         customToast();
         window.location.reload()
-
-=======
-        window.location.reload();
->>>>>>> Do
     };// Sự kiện thêm vào sesssions 
 
     const sizeComponent = (sizes) => {
