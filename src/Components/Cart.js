@@ -1,7 +1,6 @@
 import React from 'react'
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react"
-import DetailProduct from './Detail_Product'
 function Cart() {
     const [local,setLocalStorage] = useState(localStorage.getItem('countQuanity'));
     // const [count, setCount] = useState(0);

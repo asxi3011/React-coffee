@@ -1,11 +1,8 @@
 import React from "react"
-import { Link } from "react-router-dom";
-import { useState, useLayoutEffect } from "react"
-import axios from 'axios'
+
 import News from './News.js'
 
 function PageNews({news}) {
-    console.log("pageNews:",News);
     return (
         <>
             <div className="container-fluid pd-header">
@@ -15,7 +12,7 @@ function PageNews({news}) {
                     </div>
                     <div className="preview-News mt-5">
                         <div className="row my-3">
-                            {news.map((neww)=><News data={neww}/>)}
+                            {news.map((neww,index)=><News key={index} data={neww}/>)}
                         </div>
                     </div>
               

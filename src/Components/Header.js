@@ -1,4 +1,4 @@
-import { React, useState} from "react"
+import { React, useState,memo} from "react"
 import { Link } from "react-router-dom";
 import { Button, Modal, Container, Row, Col } from 'react-bootstrap';
 import Cart from './Cart'
@@ -43,14 +43,14 @@ function Header() {
                                 <Link to="/news" className="a-none text-white  page-header">
                                     Tin tức
                                 </Link>
-                                <a
+                                <div
                                     id="btn_show_Modal"
                                     className="a-none pe-cursor text-white page-header"
                                     // onClick={handleShowModal}
                                     onClick={handleShow}
                                 >
                                     Khuyến mãi
-                                </a>
+                                </div>
                                 <Link to="/tracuudonhang" className="a-none text-white page-header">
                                     Tra cứu đơn hàng
                                 </Link>
@@ -135,4 +135,4 @@ function Header() {
     )
 }
 
-export default Header
+export default memo(Header)

@@ -1,6 +1,6 @@
 import React from "react";
 import { ToastContainer, toast } from 'react-toastify'
-import { useState, useEffect,createContext} from 'react';
+import { useState, useEffect} from 'react';
 import axios from 'axios';
 
 import { BsFillFileTextFill } from "react-icons/bs";
@@ -29,16 +29,12 @@ const DetailProduct = () => {
     const [checked, setChecked] = useState({});
     const [priceTotal, setPriceTotal] = useState(0);
     const { slug } = useParams()
-    const [show, setShow] = useState(false);
-    
 
-    const [countCart,setCountCart] = useState(true);
     useEffect(() => {
         setCarts({
-            idProduct: ids,
+          
             currentPriceProduct: prices,
             name_product: name_products,
-            priceTotal: prices * count,
             note: notes,
             idProduct: ids,
             priceTotal: priceTotal,
@@ -46,12 +42,12 @@ const DetailProduct = () => {
             sizeName: checked.name,
             sizePrice: Number(checked.value),
         })
-    }, [checked, priceTotal,carts.length, count]) // Chỉnh thay đổi giỏ hàng
+    }, [checked, priceTotal,carts.length, count,ids,notes,prices,name_products]) // Chỉnh thay đổi giỏ hàng
     useEffect(() => {
         setPriceTotal(() => {
             return count * (prices + Number(checked.value))
         });
-    }, [checked, count]) // Chỉnh tổng giá tiền
+    }, [checked, count,prices]) // Chỉnh tổng giá tiền
     const onClickSessions = () => {
         const arrayP = JSON.parse(localStorage.getItem('arrayCart')) || [];
         const countPlus = JSON.parse(localStorage.getItem('countQuanity') || 0)
@@ -96,7 +92,7 @@ const DetailProduct = () => {
     } // Componet Size
     useEffect(() => {
 
-        axios.get(`https://sever-coffeehouse.herokuapp.com/product/${slug}`)
+         axios.get(`https://sever-coffeehouse.herokuapp.com/product/${slug}`)
             .then(res => {
                 setImgs(res.data.product.imageRepresent)
                 setprices(res.data.product.priceStandard)
@@ -106,8 +102,9 @@ const DetailProduct = () => {
                 setSizes(res.data.size)
                 setIds(res.data.product._id)
                 setChecked({name:res.data.size[0].name,value:res.data.size[0].value})
-            })
-    }, []) // Lấy dữ liệu từ API
+            });
+        
+    }, [slug]) // Lấy dữ liệu từ API
 
     return (
      

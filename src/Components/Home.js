@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { React } from "react"
+import { React ,memo} from "react"
 import Category from "./Category";
 import PageNews from "./PageNews";
 import CardProduct from "./CardProduct";
@@ -7,7 +7,6 @@ import Slider from "./Slider";
 import NotFound from "./NotFound";
 
 function Home({categorys,news,products}) {
-    console.log("HomeCategorys",categorys);
     return (
         categorys ?
         <>
@@ -23,12 +22,12 @@ function Home({categorys,news,products}) {
                                 Sản phẩm từ Nhà
                             </div>
                             <div className="d-flex flex-wrap justify-content-center list-category pd-t-50 divTest">
-                                {categorys.map((category)=><Category category={category}/>)}                               
+                                {categorys.map((category,index)=><Category key={index} category={category}/>)}                               
                             </div>
                         </div>
                         <div className="preview-Product mt-5">
                             <div className="row my-3">
-                            {products.map((product)=> <CardProduct product={product}/>)}                                              
+                            {products.map((product,index)=> <CardProduct key={index} product={product}/>)}                                              
                             </div>
                         </div>
                         <div className="text-center">
@@ -46,4 +45,4 @@ function Home({categorys,news,products}) {
     )
 }
 
-export default Home
+export default memo(Home)

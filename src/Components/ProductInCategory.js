@@ -1,16 +1,13 @@
 
 import {React, useState, useEffect,useCallback } from "react"
 import axios from 'axios'
-import { Link } from "react-router-dom";
 import { useParams } from 'react-router-dom';
 import Category from "./Category"
 import Slider from "./Slider"
 import CardProduct from "./CardProduct"
-import NotFound from "./NotFound"
 function ProductInCategory({categorys}) {
     const { slug } = useParams();
     const [products, setProducts] = useState([])
-    console.log("productsa",products);
     const fetchMyAPI = useCallback(async () => {
         if(slug === "product"){
             const response = await axios.get(`https://sever-coffeehouse.herokuapp.com/getProducts`);
