@@ -51,8 +51,6 @@ function ProductInCategory({categorys}) {
                                                  {products.map((product,index)=><CardProduct key={index} product={product}/>)}   
                                                 </div>
                                                 </div>                                      
-                                    
-                                  
                                 </div>
                             </div>
                         </div>
