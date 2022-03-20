@@ -1,6 +1,6 @@
 import React from "react";
 import { ToastContainer, toast } from 'react-toastify'
-import { useState, useEffect} from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 
 import { BsFillFileTextFill } from "react-icons/bs";
@@ -12,11 +12,11 @@ import 'react-toastify/dist/ReactToastify.css';
 const DetailProduct = () => {
     let customToast = () =>
         toast.success('Chọn món thành công',
-        {
-            autoClose:500,
-            draggable: true,
-            hideProgressBar: true,            
-        });
+            {
+                autoClose: 500,
+                draggable: true,
+                hideProgressBar: true,
+            });
     const [count, setCount] = useState(1)
     const [notes, setNote] = useState([])
     const [sizes, setSizes] = useState([])
@@ -32,7 +32,7 @@ const DetailProduct = () => {
 
     useEffect(() => {
         setCarts({
-          
+
             currentPriceProduct: prices,
             name_product: name_products,
             note: notes,
@@ -42,17 +42,17 @@ const DetailProduct = () => {
             sizeName: checked.name,
             sizePrice: Number(checked.value),
         })
-    }, [checked, priceTotal,carts.length, count,ids,notes,prices,name_products]) // Chỉnh thay đổi giỏ hàng
+    }, [checked, priceTotal, carts.length, count, ids, notes, prices, name_products]) // Chỉnh thay đổi giỏ hàng
     useEffect(() => {
         setPriceTotal(() => {
             return count * (prices + Number(checked.value))
         });
-    }, [checked, count,prices]) // Chỉnh tổng giá tiền
+    }, [checked, count, prices]) // Chỉnh tổng giá tiền
     const onClickSessions = () => {
         const arrayP = JSON.parse(localStorage.getItem('arrayCart')) || [];
         const countPlus = JSON.parse(localStorage.getItem('countQuanity') || 0)
         arrayP.push(carts)
-        localStorage.setItem('arrayCart',JSON.stringify(arrayP))
+        localStorage.setItem('arrayCart', JSON.stringify(arrayP))
         localStorage.setItem('countQuanity', count + countPlus)
         setCount(1)
         console.log(count)
@@ -60,7 +60,7 @@ const DetailProduct = () => {
 
         customToast();
         window.location.reload()
-        
+
     };// Sự kiện thêm vào sesssions 
 
     const sizeComponent = (sizes) => {
@@ -92,7 +92,7 @@ const DetailProduct = () => {
     } // Componet Size
     useEffect(() => {
 
-         axios.get(`https://sever-coffeehouse.herokuapp.com/product/${slug}`)
+        axios.get(`https://sever-coffeehouse.herokuapp.com/product/${slug}`)
             .then(res => {
                 setImgs(res.data.product.imageRepresent)
                 setprices(res.data.product.priceStandard)
@@ -101,13 +101,13 @@ const DetailProduct = () => {
                 setNameProducts(res.data.product.nameProduct)
                 setSizes(res.data.size)
                 setIds(res.data.product._id)
-                setChecked({name:res.data.size[0].name,value:res.data.size[0].value})
+                setChecked({ name: res.data.size[0].name, value: res.data.size[0].value })
             });
-        
+
     }, [slug]) // Lấy dữ liệu từ API
 
     return (
-     
+
         <div className="pd-header">
             <div className="container">
 
@@ -123,52 +123,52 @@ const DetailProduct = () => {
                                         <div>
                                             <img src={`https://sever-coffeehouse.herokuapp.com/uploads/${imgs}`} alt="" />
 
-                                            </div>
                                         </div>
                                     </div>
-                                    <p className="mt-4">{description}
-                                    </p>
+                                </div>
+                                <p className="mt-4">{description}
+                                </p>
+                            </div>
+
+                            <div className="col-6">
+                                <h2 id="name_product" className="d-block price-size-show fw-bold"   >{name_products}</h2>
+                                <div className="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <span id=""
+                                            className="details-price-prodcut">{prices.toLocaleString()}đ</span>
+                                        <span id="details-price-product" className="details-price-prodcut"
+                                            hidden></span>
+                                    </div>
+                                    <div className="quanity-product">
+                                        {count <= 1 ? <button id="btn_down" type="button" className="mx-2 btn btn-circle-primary btn-circle-disable" ><FaMinus
+                                            className=" text-white"></FaMinus></button>
+
+                                            : <button id="" type="button"
+                                                className="btn btn-circle-primary  mx-2" onClick={() => setCount(count - 1)}>
+                                                <FaMinus className=" text-white"></FaMinus></button>}
+
+
+                                        <span className="mx-2" name="test" id="idcount" value={count}
+                                            onChange={e => setCount(e.target.value)}>{count}</span>
+
+                                        <button type="button" id="btn_up" className="mx-2 btn btn-circle-primary" onClick={() => setCount(count + 1)}>
+                                            <FaPlus className="fas fa-plus text-white"></FaPlus></button>
+                                    </div>
                                 </div>
 
-                                <div className="col-6">
-                                    <h2 id="name_product" className="d-block price-size-show fw-bold"   >{name_products}</h2>
-                                    <div className="d-flex justify-content-between align-items-center">
-                                        <div>
-                                            <span id=""
-                                                className="details-price-prodcut">{prices.toLocaleString()}đ</span>
-                                            <span id="details-price-product" className="details-price-prodcut"
-                                                hidden></span>
-                                        </div>
-                                        <div className="quanity-product">
-                                            {count <= 1 ? <button id="btn_down" type="button" className="mx-2 btn btn-circle-primary btn-circle-disable" ><FaMinus
-                                                className=" text-white"></FaMinus></button>
-
-                                                : <button id="" type="button"
-                                                    className="btn btn-circle-primary  mx-2" onClick={() => setCount(count - 1)}>
-                                                    <FaMinus className=" text-white"></FaMinus></button>}
-
-
-                                            <span className="mx-2" name="test" id="idcount" value={count}
-                                                onChange={e => setCount(e.target.value)}>{count}</span>
-
-                                            <button type="button" id="btn_up" className="mx-2 btn btn-circle-primary" onClick={() => setCount(count + 1)}>
-                                                <FaPlus className="fas fa-plus text-white"></FaPlus></button>
-                                        </div>
-                                    </div>
-
-                                    <div>
-                                        <div className="input-group mt-4">
-                                            <div className="input-group-prepend">
-                                                <div className="input-group-text">
-                                                    <BsFillFileTextFill className="text-secondary  fs-4" />
-                                                </div>
+                                <div>
+                                    <div className="input-group mt-4">
+                                        <div className="input-group-prepend">
+                                            <div className="input-group-text">
+                                                <BsFillFileTextFill className="text-secondary  fs-4" />
                                             </div>
-                                            <input type="text" className="form-control" id="inlineFormInputGroup"
-                                                value={notes} onChange={e => setNote(e.target.value)} placeholder="Ghi chú cho món tại đây" />
                                         </div>
+                                        <input type="text" className="form-control" id="inlineFormInputGroup"
+                                            value={notes} onChange={e => setNote(e.target.value)} placeholder="Ghi chú cho món tại đây" />
                                     </div>
+                                </div>
 
-                                    {sizeComponent(sizes)}
+                                {sizeComponent(sizes)}
 
                                 <button type="submit" className="btn btn-color-primary w-100 mt-4"
                                     id="btn_addToCart" onClick={onClickSessions} >
@@ -179,7 +179,7 @@ const DetailProduct = () => {
                                     }đ - Thêm vào giỏ hàng
 
                                 </button>
-                                <ToastContainer 
+                                <ToastContainer
                                 />
                             </div>
 
