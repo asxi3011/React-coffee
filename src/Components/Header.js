@@ -8,21 +8,20 @@ function Header() {
     console.log("Xuất header")
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
-    // const onClickResponsive = () => {
-    //     var x = document.getElementById("myTopnav");
-    //     console.log(x)
-    //     if (x.className === "bg-header header-app") {
-    //         x.className += " responsive";
-    //     } else {
-    //         x.className = "bg-header header-app";
-    //     }
-    // }
+
     return (
         <>
 
             <div id="myTopnav" className="bg-header header-app " style={{ top: 0 }}>
                 <div className="text-white align-items-center container-fluid">
                     <div className="d-flex align-items-center header-height justify-content-between pd-w-100 ">
+                        <div className=" ">
+                            <label for="nav-mobile-input">
+                                <div className="mobile-menu-btn">
+                                    <i className="icon-menu fa-solid fa-align-justify"></i>
+                                </div>
+                            </label>
+                        </div>
                         <div className="d-flex gap-5  align-items-center">
                             <Link to="/" className="d-flex logo-width">
                                 <img
@@ -46,11 +45,7 @@ function Header() {
                                     </div>
                                 </div>
                             </di>
-                            <label for="nav-mobile-input">
-                                <div className="mobile-menu-btn">
-                                    <i className="icon-menu fa-solid fa-align-justify"></i>
-                                </div>
-                            </label>
+
                             <div className="d-flex gap-3 fw-bold navivation-header fs-min-plus">
 
                                 <Link to="/product" className="button-block a-none text-white page-header">

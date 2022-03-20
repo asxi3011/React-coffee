@@ -13447,16 +13447,16 @@ button.btn_action {
   }
 
   .icon-menu {
-    /* position: absolute; */
     display: block;
     cursor: pointer;
     font-size: 26px;
-    /* top: 28px; */
   }
 
-  .border-giaohang,
-  .logo-width {
+  .border-giaohang {
     display: none !important;
+  }
+  .logo-width{
+
   }
 
   .list-category {
@@ -13467,9 +13467,4 @@ button.btn_action {
     padding: 0 !important;
   }
 
-
-
-  /* .navivation-header{
-    display: none !important;
-  } */
 }
