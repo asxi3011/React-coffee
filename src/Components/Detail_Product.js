@@ -67,20 +67,20 @@ const DetailProduct = () => {
     const sizeComponent = (sizes) => {
         return (
 
-            <div className="mt-4 bd-size">
+            <div className=" row mt-4 bd-size">
                 <div className="bg-border ">Chọn size (BẮT BUỘC)</div>
                 <div className="">
-                    <div className="d-flex justify-content-evenly p-2">
+                    <div className="col-sm d-flex justify-content-evenly p-2 ">
                         {sizes.map((size, index) =>
-                            <div key={index} className="d-flex align-items-center gap-3" >
+                            <div key={index} className="align-items-center col-6 col-sm-4  d-flex  gap-2" >
 
-                                <input className="form-check-input rad-primary" id={`sizePrice${index}`} type="radio" name={size.name}
+                                <input className="col-sm-2 form-check-input rad-primary" id={`sizePrice${index}`} type="radio" name={size.name}
                                     checked={checked.name === size.name} value={size.value} onChange={() => {
                                         setChecked({ name: size.name, value: size.value })
                                     }}
                                 />
 
-                                <div>
+                                <div className="">
                                     <label htmlFor={`sizePrice${index}`} className="d-block" >{size.name}</label>
                                     <label htmlFor={`sizePrice${index}`} className="d-block price-size-show"
                                     >{Number(size.value).toLocaleString('vi-VN')} đ</label>
@@ -132,7 +132,7 @@ const DetailProduct = () => {
                             </div>
 
                             <div className="col-6">
-                                <h2 id="name_product" className="d-block price-size-show fw-bold"   >{name_products}</h2>
+                                <h2 id="name_product" className=" md-6 d-block price-size-show fw-bold"   >{name_products}</h2>
                                 <div className="d-flex justify-content-between align-items-center">
                                     <div>
                                         <span id=""
@@ -149,7 +149,7 @@ const DetailProduct = () => {
                                                 <FaMinus className=" text-white"></FaMinus></button>}
 
 
-                                        <span className="mx-2 " name="test" id="idcount" value={count}
+                                        <span className="mx-3 " name="test" id="idcount" value={count}
                                             onChange={e => setCount(e.target.value)}>{count}</span>
 
                                         <button type="button" id="btn_up" className="mx-2 btn btn-circle-primary" onClick={() => setCount(count + 1)}>
@@ -171,7 +171,7 @@ const DetailProduct = () => {
 
                                 {sizeComponent(sizes)}
 
-                                <button type="submit" className="btn btn-color-primary w-100 mt-4"
+                                <Button type="submit" className="btn btn-color-primary w-100 mt-4"
                                     id="btn_addToCart" onClick={onClickSessions} >
 
 
@@ -179,7 +179,7 @@ const DetailProduct = () => {
                                         (priceTotal).toLocaleString('vi-VN')
                                     }đ - Thêm vào giỏ hàng
 
-                                </button>
+                                </Button>
                                 <ToastContainer 
                                 />
                             </div>
