@@ -30,8 +30,9 @@ function App() {
   }, [])
   //
   return (
-    <GlobalStyles>
+    <GlobalStyles >
       <div className="App">
+<<<<<<< HEAD
         <Header/>
           <Routes>
             <Route path="/" element={<Home categorys = {categorys} products={products} news={news}/>} />
@@ -42,6 +43,19 @@ function App() {
             <Route path="/tracuudonhang" element={<GetOrder/>}/>
             <Route path="/cart" element={ <ShopingCart/>}/>
           </Routes>
+=======
+        <Header  />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/news" element={<News />} />
+          <Route path="/news/:slug" element={<NewId />} />
+          <Route path="/:slug" element={<ProductInCategory />} />
+    
+          <Route path="/product/:slug" element={<DetailProduct />} />
+ 
+        </Routes>
+        
+>>>>>>> Do
         <Footer />
       </div>
     </GlobalStyles>
