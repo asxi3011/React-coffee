@@ -2,7 +2,7 @@ import React from "react";
 import { ToastContainer, toast } from 'react-toastify'
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-
+import { Button, Modal, Container, Row, Col } from 'react-bootstrap';
 import { BsFillFileTextFill } from "react-icons/bs";
 import { FaPlus, FaMinus } from "react-icons/fa";
 import { useParams } from "react-router-dom";
@@ -31,7 +31,7 @@ const DetailProduct = () => {
     const [checked, setChecked] = useState({});
     const [priceTotal, setPriceTotal] = useState(0);
     const { slug } = useParams()
-    const [show, setShow] = useState(false);
+
 
 
     useEffect(() => {
@@ -140,7 +140,7 @@ const DetailProduct = () => {
                                         <span id="details-price-product" className="details-price-prodcut"
                                             hidden></span>
                                     </div>
-                                    <div className="quanity-product">
+                                    <div className="quanity-product mx-0">
                                         {count <= 1 ? <button id="btn_down" type="button" className="mx-2 btn btn-circle-primary btn-circle-disable" ><FaMinus
                                             className=" text-white"></FaMinus></button>
 
@@ -149,7 +149,7 @@ const DetailProduct = () => {
                                                 <FaMinus className=" text-white"></FaMinus></button>}
 
 
-                                        <span className="mx-2" name="test" id="idcount" value={count}
+                                        <span className="mx-2 " name="test" id="idcount" value={count}
                                             onChange={e => setCount(e.target.value)}>{count}</span>
 
                                         <button type="button" id="btn_up" className="mx-2 btn btn-circle-primary" onClick={() => setCount(count + 1)}>
