@@ -47,7 +47,7 @@ const DetailProduct = () => {
         setCount(1)
         console.log(count)
         setNote('');
-        window.location.reload()
+        window.location.reload();
     };// Sự kiện thêm vào sesssions 
 
     const sizeComponent = (sizes) => {

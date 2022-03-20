@@ -14,9 +14,9 @@ import './App.css'
 import DetailProduct from './Components/Detail_Product.js'
 function App() {
   return (
-    <GlobalStyles>
+    <GlobalStyles >
       <div className="App">
-        <Header />
+        <Header  />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/news" element={<News />} />
