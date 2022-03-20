@@ -13353,6 +13353,87 @@ button.btn_action {
 
 /* Responsive */
 
+.nav__mobile {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 320px;
+  max-width: 100%;
+  background-color: 100%;
+  z-index: 10;
+  padding: 20px;
+  background-color: rgb(133, 109, 31);
+  transform: translateX(100%);
+  transition: transform linear 0.2s;
+}
+
+.nav__mobile-list {
+  margin-top: 24px;
+  list-style: none;
+}
+
+.nav__mobile-link {
+  text-decoration: none;
+  color: #000;
+  display: block;
+  padding: 24px 0;
+  cursor: pointer;
+}
+
+
+.nav__input {
+  display: none;
+}
+
+.nav__input:checked~.nav__overlay {
+  display: block;
+}
+
+.nav__input:checked~.nav__mobile {
+  transform: translateX(0)
+}
+
+.nav__mobile-close {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  cursor: pointer;
+  font-size: 26px;
+}
+
+.icon-menu:hover,
+.nav__mobile-link:hover,
+.nav__mobile-close:hover {
+  opacity: 0.5;
+}
+
+.nav__input .close-icon {
+  font-size: 26px;
+  color: #000;
+
+}
+
+.nav__overlay {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: none;
+  animation: fadeIn linear 0.3s;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
 
 /* Mobile & Tablet */
 
@@ -13364,11 +13445,6 @@ button.btn_action {
   .responsive .button-block {
     display: block !important;
   }
-
-  .areu {
-    position: relative;
-  }
-
 
   .icon-menu {
     /* position: absolute; */
@@ -13391,9 +13467,7 @@ button.btn_action {
     padding: 0 !important;
   }
 
-  .test123 {
-    display:block;
-  }
+
 
   /* .navivation-header{
     display: none !important;

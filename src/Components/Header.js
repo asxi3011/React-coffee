@@ -8,15 +8,15 @@ function Header() {
     console.log("Xuất header")
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
-    const onClickResponsive = () => {
-        var x = document.getElementById("myTopnav");
-        console.log(x)
-        if (x.className === "bg-header header-app") {
-            x.className += " responsive";
-        } else {
-            x.className = "bg-header header-app";
-        }
-    }
+    // const onClickResponsive = () => {
+    //     var x = document.getElementById("myTopnav");
+    //     console.log(x)
+    //     if (x.className === "bg-header header-app") {
+    //         x.className += " responsive";
+    //     } else {
+    //         x.className = "bg-header header-app";
+    //     }
+    // }
     return (
         <>
 
@@ -31,7 +31,7 @@ function Header() {
                                     alt=""
                                 />
                             </Link>
-                            <div className="border-giaohang d-flex gap-2 align-items-center">
+                            <di v className="border-giaohang d-flex gap-2 align-items-center">
                                 <div className="img-addres">
                                     <img
                                         className="w-100 h-100"
@@ -45,11 +45,14 @@ function Header() {
                                         <div className="fs-min-plus text-address">Tận nhà của bạn</div>
                                     </div>
                                 </div>
-                            </div>
-                            <div className="mobile-menu-btn">
-                                <i className="icon-menu fa-solid fa-align-justify" onClick={onClickResponsive}></i>
-                            </div>
-                            <div className="d-flex gap-3 fw-bold navivation-header fs-min-plus test123">
+                            </di>
+                            <label for="nav-mobile-input">
+                                <div className="mobile-menu-btn">
+                                    <i className="icon-menu fa-solid fa-align-justify"></i>
+                                </div>
+                            </label>
+                            <div className="d-flex gap-3 fw-bold navivation-header fs-min-plus">
+
                                 <Link to="/product" className="button-block a-none text-white page-header">
                                     Đặt hàng
                                 </Link>
@@ -69,9 +72,34 @@ function Header() {
 
                             </div>
                         </div>
+
+                        <input type="checkbox" className="nav__input" id="nav-mobile-input" />
+
+                        <nav className="nav__mobile">
+                            <label for="nav-mobile-input" className="nav__mobile-close">
+                                <i class="close-icon fa-solid fa-xmark"></i>
+                            </label>
+                            <ul className="nav__mobile-list">
+                                <li>
+                                    <Link to="/product" className="nav__mobile-link text-white">Đặt hàng</Link>
+                                </li>
+                                <li>
+                                    <Link to="/news" className="nav__mobile-link text-white">Tin tức</Link>
+                                </li>
+                                <li>
+                                    <div id="btn_show_Modal" onClick={handleShow} className="nav__mobile-link text-white">Khuyến mãi</div>
+                                </li>
+                                <li>
+                                    <Link to="/tracuudonhang" className="nav__mobile-link text-white">Tra cứu đơn</Link>
+                                </li>
+                            </ul>
+                        </nav>
+
                         <div className=" ">
                             <Cart />
                         </div>
+                        <label for="nav-mobile-input" className="nav__overlay"></label>
+
                     </div>
                 </div>
             </div>
