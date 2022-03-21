@@ -1,6 +1,6 @@
 
 import React from "react";
-
+import  useLayoutEffect  from "react";
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { BsFillFileTextFill } from "react-icons/bs";
@@ -15,11 +15,11 @@ function ShopingCart(){
   const countPlus = JSON.parse(localStorage.getItem('countQuanity') || 0)
   // arrayP.push(carts)
   console.log(arrayP)
-  useEffect(()=>{
-    
+  
+
     
 
-  })
+  
   const sizeComponent = (sizes)=>{
     return(
         <div className="mt-4 bd-size">
@@ -53,65 +53,70 @@ function ShopingCart(){
 
 
   }
- function renderModalProduct(name,description,price,quanity,size,img,note,id){
-    var a = "";
+//  function renderModalProduct(name,description,price,quanity,size,img,note,id){
+//     var a = "";
     
-    return `<div class="text-center fw-bold fs-6 my-3">
-          Sản phẩm
-      </div>
-      <div class="d-flex gap-3 align-items-center">
-          <img class="img-cart-modal" src="/uploads/${img}" alt="">
-          <div class="d-flex flex-grow-1 flex-column gap-3">
-              <div id="name_product" class="fw-bold">${name}</div>
-              <div>
-                ${description}
-              </div>
-              <div class="d-flex justify-content-between align-items-center">
-                  <div id="details-price-product" class="">${price}</div>
-                  <div class="quanity-product">
-                                      <button id="btn_down" type="button" class="btn btn-circle-primary btn-circle-disable mx-2"><i class="fas fa-minus text-white"></i></button>
-                                      <span class="mx-2" name="test" id="lbl_quanity">${quanity}</span>
-                                      <button type="button" id="btn_up" class="mx-2 btn btn-circle-primary"><i class="fas fa-plus text-white"></i></button>
-                  </div> 
-              </div>
-          </div>
-      </div>
-      <div class="input-group my-3">
-                                      <div class="input-group-prepend">
-                                      <div class="input-group-text"><i class="fas fa-sticky-note fs-4 text-secondary"></i></div>
-                                      </div>
-                                      <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="Ghi chú cho món tại đây" value="${note}">
-          </div>
-          <div class="mt-4 bd-size">
-                                  <div class="bg-border ">Chọn size (BẮT BUỘC)</div>
-                                  <div class=""> 
-                                      <div class="d-flex justify-content-evenly p-2">`+
+//     return `<div class="text-center fw-bold fs-6 my-3">
+//           Sản phẩm
+//       </div>
+//       <div class="d-flex gap-3 align-items-center">
+//           <img class="img-cart-modal" src="/uploads/${img}" alt="">
+//           <div class="d-flex flex-grow-1 flex-column gap-3">
+//               <div id="name_product" class="fw-bold">${name}</div>
+//               <div>
+//                 ${description}
+//               </div>
+//               <div class="d-flex justify-content-between align-items-center">
+//                   <div id="details-price-product" class="">${price}</div>
+//                   <div class="quanity-product">
+//                                       <button id="btn_down" type="button" class="btn btn-circle-primary btn-circle-disable mx-2"><i class="fas fa-minus text-white"></i></button>
+//                                       <span class="mx-2" name="test" id="lbl_quanity">${quanity}</span>
+//                                       <button type="button" id="btn_up" class="mx-2 btn btn-circle-primary"><i class="fas fa-plus text-white"></i></button>
+//                   </div> 
+//               </div>
+//           </div>
+//       </div>
+//       <div class="input-group my-3">
+//                                       <div class="input-group-prepend">
+//                                       <div class="input-group-text"><i class="fas fa-sticky-note fs-4 text-secondary"></i></div>
+//                                       </div>
+//                                       <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="Ghi chú cho món tại đây" value="${note}">
+//           </div>
+//           <div class="mt-4 bd-size">
+//                                   <div class="bg-border ">Chọn size (BẮT BUỘC)</div>
+//                                   <div class=""> 
+//                                       <div class="d-flex justify-content-evenly p-2">`+
                                      
-                                      sizeComponent(size)                                   
-                                    +`
-                                      </div>
-                                  </div>
-          </div>
-      <div class="text-center my-3">
-          <button type="submit" class="btn btn-color-primary w-100 mt-4" id="btn_addToCart">
-                                  <span id="price_Total" hidden>${price}</span>
-                                  <span id="price_Total_show">${price}</span> - Thêm vào giỏ hàng
-                              </button>
-                              <input id="id_product" name="id_product" type="hidden" value="${id}">
-      </div>`
-  }
-  const getProduct=(id)=>{
+//                                       sizeComponent(size)                                   
+//                                     +`
+//                                       </div>
+//                                   </div>
+//           </div>
+//       <div class="text-center my-3">
+//           <button type="submit" class="btn btn-color-primary w-100 mt-4" id="btn_addToCart">
+//                                   <span id="price_Total" hidden>${price}</span>
+//                                   <span id="price_Total_show">${price}</span> - Thêm vào giỏ hàng
+//                               </button>
+//                               <input id="id_product" name="id_product" type="hidden" value="${id}">
+//       </div>`
+//   }
+  // const getProduct=(id)=>{
     
-    console.log("123")
-    axios.get(`https://sever-coffeehouse.herokuapp.com/getProduct?id=${id}`)
-            .then(res => {
-              console.log(res)
-              renderModalProduct(res.data.nameProduct,"",3000,3,res.data.size,res.data.imageRepresent,"",res.data._id)
+  //   console.log("123")
+  //   axios.get(`https://sever-coffeehouse.herokuapp.com/getProduct?id=${id}`)
+  //           .then(res => {
+  //             console.log(res)
+  //             renderModalProduct(res.data.nameProduct,"",3000,3,res.data.size,res.data.imageRepresent,"",res.data._id)
                 
             
-            })
+  //           })
             
 
+  // }
+  const handleRemove=(idProduct)=>{
+    const newList=arrayP.filter((order)=>order.idProduct !== idProduct);
+    setarrayP(newList);
+    
   }
   const renderlist=(array)=>{
     console.log()
@@ -120,7 +125,7 @@ function ShopingCart(){
                 {array.map((order,index)=>
                   <div key={index} className="col-12">
                         <div className="line-product d-flex align-items-center gap-2 my-2">
-                          <div className="btn btn-edit-product-cart " onClick={getProduct(order.idProduct)} index={0}>
+                          <div className="btn btn-edit-product-cart "  index={0}>
                             <i className="fas fa-pen color-primary" />
                           </div>
                           <div className="flex-grow-1">
@@ -132,7 +137,7 @@ function ShopingCart(){
                             </div>
                             <div>
                             </div>
-                            <div className="btn-delte-product-cart d-inline-block" index={0}>
+                            <div className="btn-delte-product-cart d-inline-block"  index={0}>
                               Xóa
                             </div>
                           </div>
@@ -159,7 +164,7 @@ function ShopingCart(){
   
   <div className="pd-header">
     <div className="container">
-      <div className="pd-w-100">
+      <div className="name2">
         <div className="mt-5 text-center fs-4">
           <i className="fas fa-file text-warning" />
           <span className="fw-bold">
