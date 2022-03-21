@@ -87,7 +87,10 @@ body {
   background-color: var(--bs-body-bg);
   -webkit-text-size-adjust: 100%;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+ 
 }
+
+
 
 hr {
   margin: 1rem 0;
@@ -8609,7 +8612,65 @@ textarea.form-control-lg {
 .invisible {
   visibility: hidden !important;
 }
+.name {
+  padding-left: 200px;
+  padding-right: 200px;
+}
+.name2{
+  padding-left: 150px;
+  padding-right: 150px;
+}
 
+@media (min-width :900px) and (max-width:1100px){
+  .name {
+    padding-left: 50px;
+    padding-right: 50px;
+}
+
+.mt-4{
+  margin-top: 1.5rem !important;
+      text-align: justify;
+}
+  .name2{
+  padding-left: 50px;
+    padding-right: 50px;
+}
+
+}
+
+@media (min-width :280px) and (max-width:900px){
+  .name2 {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+  .col-6{
+    flex: 0 0 auto;
+    width: 100%;
+  }
+  .mt-4{
+    margin-top: 1.5rem !important;
+        text-align: justify;
+  }
+  .fw-bold {
+    font-weight: 700 !important;
+    text-align: left;}
+  .name {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+  .details-image-info-product {
+    width: 50%;
+    border-radius: 12px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;}
+    .list-image-details-info-product img {
+      width: 80px;
+      height: 80px;
+      border-radius: 12px;
+      display: none;
+  }
+}
 @media (min-width: 576px) {
   .float-sm-start {
     float: left !important;

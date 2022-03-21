@@ -108,8 +108,7 @@ const DetailProduct = () => {
 
         <div className="pd-header">
             <div className="container">
-
-                <div className="pd-w-200">
+                <div className="name">
                     <div className="bd-product my-5">
                         <div className="row">
                             <div className="col-6">
@@ -128,7 +127,7 @@ const DetailProduct = () => {
                                 </p>
                             </div>
 
-                            <div className="col-6">
+                            <div className="col-6 ">
                                 <h2 id="name_product" className="d-block price-size-show fw-bold"   >{name_products}</h2>
                                 <div className="d-flex justify-content-between align-items-center">
                                     <div>
