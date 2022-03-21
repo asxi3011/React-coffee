@@ -13362,6 +13362,7 @@ button.btn_action {
   max-width: 100%;
   background-color: 100%;
   z-index: 10;
+  border-radius: 6px;
   padding: 20px;
   background-color: rgb(133, 109, 31);
   transform: translateX(100%);
@@ -13414,6 +13415,16 @@ button.btn_action {
 
 }
 
+.div-icon {
+  display: none;
+}
+
+.tra-icon {
+  font-size: 20px;
+  color: #000;
+
+}
+
 .nav__overlay {
   position: fixed;
   top: 0;
@@ -13442,8 +13453,8 @@ button.btn_action {
     display: none !important;
   }
 
-  .responsive .button-block {
-    display: block !important;
+  .div-icon {
+    display: block;
   }
 
   .icon-menu {
@@ -13454,9 +13465,6 @@ button.btn_action {
 
   .border-giaohang {
     display: none !important;
-  }
-  .logo-width{
-
   }
 
   .list-category {

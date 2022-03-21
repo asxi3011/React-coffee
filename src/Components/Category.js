@@ -5,7 +5,7 @@ import { React, memo } from "react"
 
 function Category({ category, style, styleColor }) {
     return (
-        <Link to={`/${category.slug}`} key={category._id} className="item-category a-none test12">
+        <Link to={`/${category.slug}`} key={category._id} className="item-category a-none">
             <div className="" >
                 <div className="image-cateogry rounded-circle m-auto" style={style}>
                     <img

@@ -15,7 +15,7 @@ function Header() {
             <div id="myTopnav" className="bg-header header-app " style={{ top: 0 }}>
                 <div className="text-white align-items-center container-fluid">
                     <div className="d-flex align-items-center header-height justify-content-between pd-w-100 ">
-                        <div className=" ">
+                        <div className="div-icon">
                             <label for="nav-mobile-input">
                                 <div className="mobile-menu-btn">
                                     <i className="icon-menu fa-solid fa-align-justify"></i>
@@ -87,6 +87,25 @@ function Header() {
                                 <li>
                                     <Link to="/tracuudonhang" className="nav__mobile-link text-white">Tra cứu đơn</Link>
                                 </li>
+                                <li>
+                                    <h1 style={{ fontSize: "20px", padding: "20px 0", color: "#000" }}>Danh mục sản phẩm</h1>
+                                </li>
+                                <li>
+                                    <Link to="/banh-ngot" className="nav__mobile-link text-white"><i class="close-icon fa-solid fa-xmark"></i>  Bánh Ngọt</Link>
+                                </li>
+                                <li>
+                                    <Link to="/tra" className="nav__mobile-link text-white"><i class="close-icon fa-solid fa-xmark"></i>  Trà</Link>
+                                </li>
+                                <li>
+                                    <Link to="/ca-phe" className="nav__mobile-link text-white"><i class="close-icon fa-solid fa-xmark"></i>  Cà phê</Link>
+                                </li>
+                                <li>
+                                    <Link to="/thuong-thuc-tai-nha-" className="nav__mobile-link text-white"><i class="close-icon fa-solid fa-xmark"></i>  Thưởng thức tại nhà</Link>
+                                </li>
+                                <li>
+                                    <Link to="/da-xay" className="nav__mobile-link text-white"><i class="close-icon fa-solid fa-xmark"></i>  Đá xay</Link>
+                                </li>
+
                             </ul>
                         </nav>
 
