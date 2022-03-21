@@ -175,24 +175,6 @@ function ShopingCart(){
               Xác nhận đơn hàng
             </span>
           </div>
-          <div className="row my-5">
-            <div className="col-6">
-              <div className="pd-12">
-              <div className="d-flex align-items-center py-3 header">
-                  <span className="fw-bold fs-5">
-                    Giao hàng
-                    <img className="img-min" src="https://minio.thecoffeehouse.com/images/tch-web-order/Delivery2.png" alt="" />
-                  </span>
-                </div>
-                  <GiaoHang/>
-                <div className="d-flex align-items-center py-3 header">
-                  <span className="fw-bold fs-5">
-                    Phương thức thanh toán
-                  </span>
-                </div>
-                <div className="line_bottom" />
-                <ThanhToan/>
-              </div>
               <div className="row my-5">
                 <div className="col-6">
                   <div className="pd-12">
@@ -276,8 +258,7 @@ function ShopingCart(){
         </div>
 
 
-      </div>
-    </div>
+
   )
 }
 
