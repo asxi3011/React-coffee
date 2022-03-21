@@ -13,6 +13,7 @@ import './Components/css/Style.css'
 import './App.css'
 import DetailProduct from './Components/Detail_Product.js'
 import ShopingCart from './Components/ShopingCart';
+import 'bootstrap/dist/js/bootstrap.min.js'
 import axios from 'axios'
 function App() {
 
