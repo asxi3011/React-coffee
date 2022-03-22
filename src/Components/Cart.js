@@ -1,26 +1,20 @@
 import React from 'react'
 import { Link } from "react-router-dom";
-import { useState, useEffect } from "react"
-function Cart() {
-    const [local,setLocalStorage] = useState(localStorage.getItem('countQuanity'));
-    // const [count, setCount] = useState(0);
-    useEffect(() => {
-        setLocalStorage(localStorage.getItem('countQuanity'))
-        console.log('render...')
+import { useEffect } from "react"
+function Cart({localCount}) {
+   
+    
+    useEffect(()=>{
         let aroundRed = document.querySelector(".quantities-cart")
         let qty = document.getElementById("soLuong_Cart")
-        
-        if (local >= 1) {
-            console.log(local);
-            qty.innerHTML = local
+        if (localCount >= 1) {
+            qty.innerHTML = localCount
             aroundRed.classList.remove("d-none");
         } else {
             aroundRed.classList.add("d-none");
         }
+    })
     
-    }, [local])
-   
-
     return (
         <>
             <div className=" ">

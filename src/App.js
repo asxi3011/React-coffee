@@ -9,6 +9,7 @@ import PageNews from './Components/PageNews'
 import NewId from './Components/NewId.js'
 import GetOrder from './Components/GetOrder.js'
 import ProductInCategory from './Components/ProductInCategory.js'
+import ThongBao from './Components/ThongBao.js'
 import './Components/css/Style.css'
 import './App.css'
 import DetailProduct from './Components/Detail_Product.js'
@@ -20,7 +21,8 @@ function App() {
   const [categorys, setCategorys] = useState([])
   const [news, setNews] = useState([])
   const [products, setProducts] = useState([]);
-
+  const [coupon,setCoupon] = useState(localStorage.getItem('coupon'));
+  const [localCount,setLocalCount] = useState(JSON.parse(localStorage.getItem('countQuanity')) || 0);
   useEffect(async () => {
     const categorys = await axios.get('https://sever-coffeehouse.herokuapp.com/getCategories')
     const products = await axios.get(`https://sever-coffeehouse.herokuapp.com/bestseller12`)
@@ -29,26 +31,23 @@ function App() {
     setNews(news.data.dataPosts);
     setProducts(products.data.dataBestseller);
   }, [])
-  //
+  
   return (
     <GlobalStyles >
       <div className="App">
-        <Header />
+        <Header localCount={localCount} setCoupon={setCoupon}/>
         <Routes>
           <Route path="/" element={<Home categorys={categorys} products={products} news={news} />} />
           <Route path="/news" element={<PageNews news={news} />} />
           <Route path="/news/:slug" element={<NewId />} />
           <Route path="/:slug" element={<ProductInCategory categorys={categorys} />} />
-          <Route path="/product/:slug" element={<DetailProduct />} />
+          <Route path="/product/:slug" element={<DetailProduct setLocalCount={setLocalCount}/>} />
           <Route path="/tracuudonhang" element={<GetOrder />} />
-          <Route path="/cart" element={<ShopingCart />} />
+          <Route path="/cart" element={localCount> 0 ?<ShopingCart setLocalCount={setLocalCount} coupon={coupon}/>: <ThongBao></ThongBao>} />
         </Routes>
-
         <Footer />
       </div>
     </GlobalStyles>
-
-
   );
 }
 

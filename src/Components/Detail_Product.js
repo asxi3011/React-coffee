@@ -9,7 +9,7 @@ import { useParams } from "react-router-dom";
 
 import 'react-toastify/dist/ReactToastify.css';
 
-const DetailProduct = () => {
+const DetailProduct = ({setLocalCount}) => {
     let customToast = () =>
         toast.success('Chọn món thành công',
             {
@@ -32,17 +32,19 @@ const DetailProduct = () => {
 
     useEffect(() => {
         setCarts({
-
+            imgs,
+            sizes,
             currentPriceProduct: prices,
             name_product: name_products,
             note: notes,
             idProduct: ids,
             priceTotal: priceTotal,
-            countQuanity: count,
+            quanityProduct: count,
+            description,            
             sizeName: checked.name,
             sizePrice: Number(checked.value),
         })
-    }, [checked, priceTotal, carts.length, count, ids, notes, prices, name_products]) // Chỉnh thay đổi giỏ hàng
+    }, [checked,imgs,description,sizes, priceTotal, carts.length, count, ids, notes, prices, name_products]) // Chỉnh thay đổi giỏ hàng
     useEffect(() => {
         setPriceTotal(() => {
             return count * (prices + Number(checked.value))
@@ -58,8 +60,9 @@ const DetailProduct = () => {
         console.log(count)
         setNote('');
         customToast();
-        window.location.reload()
-    };// Sự kiện thêm vào sesssions 
+        setLocalCount(count + countPlus);
+
+    };
 
     const sizeComponent = (sizes) => {
         return (

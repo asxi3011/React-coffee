@@ -13527,7 +13527,9 @@ button.btn_action {
   .border-giaohang {
     display: none !important;
   }
-
+  .title-category{
+    display: none !important;
+  }
   .list-category {
     display: none !important;
   }

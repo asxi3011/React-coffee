@@ -11,7 +11,7 @@ function Reply({Order}){
         }else{
             Order.status==="success" ? setMessage("Thanh2 cong6") : setMessage(messageFail);
         }
-    },[Order])
+    },[Order,messageFail])
     const InfoReply = ()=>{
         return(
             <div className="row mt-3">

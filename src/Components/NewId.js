@@ -11,7 +11,7 @@ function NewId() {
             .then((response) => {
                 setPost(response.data.post);
             });
-    }, [])
+    }, [slug])
     if (!posts) return null;
     console.log(posts)
     const someHtml = posts.content;

@@ -3,20 +3,22 @@ import { Link } from "react-router-dom";
 import { Button, Modal, Container, Row, Col } from 'react-bootstrap';
 import Cart from './Cart'
 
-function Header() {
+function Header({localCount,setCoupon}) {
     const [show, setShow] = useState(false);
-    console.log("Xuất header")
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
-
+    const clearCart = ()=>{
+        localStorage.removeItem('coupon');
+        setCoupon("");
+        setShow(false);
+    }
     return (
         <>
-
             <div id="myTopnav" className="bg-header header-app " style={{ top: 0 }}>
                 <div className="text-white align-items-center container-fluid">
                     <div className="d-flex align-items-center header-height justify-content-between pd-w-100 ">
                         <div className="div-icon">
-                            <label for="nav-mobile-input">
+                            <label htmlFor="nav-mobile-input">
                                 <div className="mobile-menu-btn">
                                     <i className="icon-menu fa-solid fa-align-justify"></i>
                                 </div>
@@ -30,7 +32,7 @@ function Header() {
                                     alt=""
                                 />
                             </Link>
-                            <di v className="border-giaohang d-flex gap-2 align-items-center">
+                            <div className="border-giaohang d-flex gap-2 align-items-center">
                                 <div className="img-addres">
                                     <img
                                         className="w-100 h-100"
@@ -44,7 +46,7 @@ function Header() {
                                         <div className="fs-min-plus text-address">Tận nhà của bạn</div>
                                     </div>
                                 </div>
-                            </di>
+                            </div>
 
                             <div className="d-flex gap-3 fw-bold navivation-header fs-min-plus">
 
@@ -71,8 +73,8 @@ function Header() {
                         <input type="checkbox" className="nav__input" id="nav-mobile-input" />
 
                         <nav className="nav__mobile">
-                            <label for="nav-mobile-input" className="nav__mobile-close">
-                                <i class="close-icon fa-solid fa-xmark"></i>
+                            <label htmlFor="nav-mobile-input" className="nav__mobile-close">
+                                <i className="close-icon fa-solid fa-xmark"></i>
                             </label>
                             <ul className="nav__mobile-list">
                                 <li>
@@ -91,101 +93,103 @@ function Header() {
                                     <h1 style={{ fontSize: "20px", padding: "20px 0", color: "#000" }}>Danh mục sản phẩm</h1>
                                 </li>
                                 <li>
-                                    <Link to="/banh-ngot" className="nav__mobile-link text-white"><i class="close-icon fa-solid fa-xmark"></i>  Bánh Ngọt</Link>
+                                    <Link to="/banh-ngot" className="nav__mobile-link text-white"><i className="close-icon fa-solid fa-xmark"></i>  Bánh Ngọt</Link>
                                 </li>
                                 <li>
-                                    <Link to="/tra" className="nav__mobile-link text-white"><i class="close-icon fa-solid fa-xmark"></i>  Trà</Link>
+                                    <Link to="/tra" className="nav__mobile-link text-white"><i className="close-icon fa-solid fa-xmark"></i>  Trà</Link>
                                 </li>
                                 <li>
-                                    <Link to="/ca-phe" className="nav__mobile-link text-white"><i class="close-icon fa-solid fa-xmark"></i>  Cà phê</Link>
+                                    <Link to="/ca-phe" className="nav__mobile-link text-white"><i className="close-icon fa-solid fa-xmark"></i>  Cà phê</Link>
                                 </li>
                                 <li>
-                                    <Link to="/thuong-thuc-tai-nha-" className="nav__mobile-link text-white"><i class="close-icon fa-solid fa-xmark"></i>  Thưởng thức tại nhà</Link>
+                                    <Link to="/thuong-thuc-tai-nha-" className="nav__mobile-link text-white"><i className="close-icon fa-solid fa-xmark"></i>  Thưởng thức tại nhà</Link>
                                 </li>
                                 <li>
-                                    <Link to="/da-xay" className="nav__mobile-link text-white"><i class="close-icon fa-solid fa-xmark"></i>  Đá xay</Link>
+                                    <Link to="/da-xay" className="nav__mobile-link text-white"><i className="close-icon fa-solid fa-xmark"></i>  Đá xay</Link>
                                 </li>
 
                             </ul>
                         </nav>
 
                         <div className=" ">
-                            <Cart />
+                            <Cart localCount={localCount}/>
                         </div>
-                        <label for="nav-mobile-input" className="nav__overlay"></label>
+                        <label htmlFor="nav-mobile-input" className="nav__overlay"></label>
 
                     </div>
                 </div>
             </div>
-            <Modal show={show} onHide={handleClose} aria-labelledby="contained-modal-title-vcenter">
-                <Modal.Header closeButton>
-                    <Modal.Title>Các chương trình khuyến mãi</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <div className="col-12  my-2">
-                        <div className="d-flex justify-content-center content-khuyenmai">
-                            <div className="row pd-bd align-items-center">
-                                <div className="col-4">
-                                    <img
-                                        className="img-preview-edit"
-                                        src="https://minio.thecoffeehouse.com/image/admin/Coupondelivery10k_238803.jpg"
-                                        alt=""
-                                    />
-                                </div>
-                                <div className="col-8">
-                                    <span>
-                                        Giảm 30% trên tổng giá trị của đơn hàng trên 500k <br />{" "}
-                                        (không bao gồm phí ship)
-                                    </span>
-                                    <div
-                                        className="color-primary mt-2 pe-cursor add_coupon"
-                                        data="30phantram"
-                                    >
-                                        Sử dụng ngay
-                                    </div>
+            
+        <Modal show={show} onHide={handleClose} aria-labelledby="contained-modal-title-vcenter">
+            <Modal.Header closeButton>
+                <Modal.Title>Các chương trình khuyến mãi</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+                <div className="col-12  my-2">
+                    <div className="d-flex justify-content-center content-khuyenmai">
+                        <div className="row pd-bd align-items-center">
+                            <div className="col-4">
+                                <img
+                                    className="img-preview-edit"
+                                    src="https://minio.thecoffeehouse.com/image/admin/Coupondelivery10k_238803.jpg"
+                                    alt=""
+                                />
+                            </div>
+                            <div className="col-8">
+                                <span>
+                                    Giảm 30% trên tổng giá trị của đơn hàng trên 500k <br />{" "}
+                                    (không bao gồm phí ship)
+                                </span>
+                                <div
+                                    className="color-primary mt-2 pe-cursor add_coupon"
+                                    data="30phantram"
+                                    onClick={()=>{localStorage.setItem("coupon","30phantram");setCoupon("30phantram")}}
+                                >
+                                    Sử dụng ngay
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div className="col-12 my-2">
-                        <div className="d-flex justify-content-center content-khuyenmai ">
-                            <div className="row pd-bd align-items-center">
-                                <div className="col-4">
-                                    <img
-                                        className="img-preview-edit"
-                                        src="https://minio.thecoffeehouse.com/image/admin/dong_gia_19k_coupon_499462.jpg"
-                                        alt=""
-                                    />
-                                </div>
-                                <div className="col-8">
-                                    <span>
-                                        Giảm trực tiếp 19k vào tổng tiền hóa đơn
-                                        <br /> (bao gồm phí ship)
-                                    </span>
-                                    <div
-                                        className="color-primary mt-2 pe-cursor add_coupon"
-                                        data="19tuoixanh"
-                                    >
-                                        Sử dụng ngay
-                                    </div>
+                </div>
+                <div className="col-12 my-2">
+                    <div className="d-flex justify-content-center content-khuyenmai ">
+                        <div className="row pd-bd align-items-center">
+                            <div className="col-4">
+                                <img
+                                    className="img-preview-edit"
+                                    src="https://minio.thecoffeehouse.com/image/admin/dong_gia_19k_coupon_499462.jpg"
+                                    alt=""
+                                />
+                            </div>
+                            <div className="col-8">
+                                <span>
+                                    Giảm trực tiếp 19k vào tổng tiền hóa đơn
+                                    <br /> (bao gồm phí ship)
+                                </span>
+                                <div
+                                    className="color-primary mt-2 pe-cursor add_coupon"
+                                    data="19tuoixanh"
+                                    onClick={()=>{localStorage.setItem("coupon","19tuoixanh");setCoupon("19tuoixanh")}}
+                                >
+                                    Sử dụng ngay
                                 </div>
                             </div>
                         </div>
                     </div>
-                </Modal.Body>
-                <Modal.Footer>
-                    <Container>
-                        <Row className="justify-content-md-center">
-                            <Col md="auto">
-                                <Button variant="outline-warning" onClick={handleClose}>
-                                    Hủy khuyến mãi
-                                </Button>
-                            </Col>
-                        </Row>
-                    </Container>
-                </Modal.Footer>
-            </Modal>
-
+                </div>
+            </Modal.Body>
+            <Modal.Footer>
+                <Container>
+                    <Row className="justify-content-md-center">
+                        <Col md="auto">
+                            <Button variant="outline-warning" onClick={clearCart}>
+                                Hủy khuyến mãi
+                            </Button>
+                        </Col>
+                    </Row>
+                </Container>
+            </Modal.Footer>
+        </Modal>
         </>
     )
 }

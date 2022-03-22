@@ -9,9 +9,9 @@ export default function ThongBao() {
       <> 
     <Modal show={show} onHide={handleShow} aria-labelledby="contained-modal-title-vcenter">     
         <Modal.Body>     
-    <div className="pd-header">
+    <div className="">
     <div className="modal-dialog modal-dialog-centered">
-      <div className="modal-content modal-cart d-flex">
+      <div className="modal-content d-flex" style={{border: 0}}>
         <div className="p-3">
           <div className="m-auto text-white fs-3 text-center">
             <img className="img-50 img-rdus-4" src="image/empty_cart.jpg" alt="" />

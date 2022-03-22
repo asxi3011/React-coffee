@@ -27,7 +27,7 @@ function ProductInCategory({categorys}) {
                     <div className="container-fluid">
                         <div className="pd-w-100 section-Chapter">
                             <div className="preview-Menu">
-                                <div className="text-center fs-3 mb-3">
+                                <div className="text-center fs-3 mb-3 title-category">
                                     <span>
                                         <i className="fas fa-trophy color-primary fs-4" />
                                     </span>

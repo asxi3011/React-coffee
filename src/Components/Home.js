@@ -15,7 +15,7 @@ function Home({categorys,news,products}) {
                 <div className="container-fluid">
                     <div className="pd-w-100 section-Chapter">
                         <div className="preview-Menu">
-                            <div className="text-center fs-3 mb-3">
+                            <div className="text-center fs-3 mb-3 mt-3">
                                 <span>
                                     <i className="fas fa-trophy color-primary fs-4" />
                                 </span>
