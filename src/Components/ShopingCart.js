@@ -8,7 +8,7 @@ import axios from 'axios';
 
 import ThanhToan from "./ThanhToan";
 
-import { io } from "https://cdn.socket.io/4.3.2/socket.io.esm.min.js";
+import { io } from "socket.io-client";
 import { Alert } from "bootstrap";
 
 
