@@ -9,6 +9,7 @@ import axios from 'axios';
 import ThanhToan from "./ThanhToan";
 
 import { io } from "https://cdn.socket.io/4.3.2/socket.io.esm.min.js";
+import { Alert } from "bootstrap";
 
 
 function ShopingCart({setLocalCount,coupon}){
@@ -91,7 +92,7 @@ function ShopingCart({setLocalCount,coupon}){
         var idOrder = response.data.idOrder;
         const socket = io("https://sever-coffeehouse.herokuapp.com", { transports : ['websocket'] });
         socket.emit("don-hang-moi", response.data);
-        console.log(email);
+        
         axios.post('https://sever-coffeehouse.herokuapp.com/sendMail', {
             mail: email,
             address: address,
@@ -136,12 +137,13 @@ function ShopingCart({setLocalCount,coupon}){
                     </div>
                     <div>
                         <div className="line_bottom" />
-                              <input type="text" value={address} onChange={(e)=>setAddress(e.target.value)} name="addressCus" className="form-control input-text-address" placeholder="Địa chỉ" required />
+                              <input type="text" value={address} onChange={(e)=>{console.log(e.target.value);setAddress(e.target.value)}} name="addressCus" className="form-control input-text-address" placeholder="Địa chỉ" required />
                               <input type="text" value={name} onChange={(e)=>setName(e.target.value)}name="nameCus" className="form-control input-text-address" placeholder="Tên người nhận" required />
                               <input type="text" value={phone} onChange={(e)=>setPhone(e.target.value)}name="numberCus" className="form-control input-text-address" placeholder="Số điện thoại" required />
                               <input type="text" value={email} onChange={(e)=>{setEmail(e.target.value)}} name="emailCus" className="form-control input-text-address" placeholder="Email" required />
                               <input type="text" value={note} onChange={(e)=>setNote(e.target.value)} name="noteCus" className="form-control input-text-address" placeholder="Thêm hướng dẫn giao hàng" />
                       </div>
+
                     <div className="d-flex align-items-center py-3 header">
                       <span className="fw-bold fs-5">
                         Phương thức thanh toán
