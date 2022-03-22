@@ -11,7 +11,7 @@ function MyVerticallyCenteredModal(props) {
           draggable: true,
           hideProgressBar: true,
       });
-  const [count, setCount] = useState(props.cart.countQuanity)
+  const [count, setCount] = useState(props.cart.quanityProduct)
   const [notes, setNote] = useState(props.cart.note)
   const [carts, setCarts] = useState(props.cart)
   const [checked, setChecked] = useState({name:props.cart.sizeName,value:props.cart.sizePrice});
@@ -50,19 +50,22 @@ function MyVerticallyCenteredModal(props) {
         </div>
     )
 }
+const getCountArray=(array)=>{
+    return array.reduce((preCount,item)=>preCount+item.quanityProduct,0);
+  }
 const onClickSessions = () => {
   const arrayP = JSON.parse(localStorage.getItem('arrayCart')) || [];
-  const countPlus = JSON.parse(localStorage.getItem('countQuanity') || 0)
-  console.log("Mảng before",arrayP);
+  
    arrayP[props.index] = carts;
-    console.log("Mảng after",arrayP);
+    
     setNote('');
     customToast();
-    const total = count+countPlus;
+    
    
-    props.setLocalCount(total);
-    localStorage.setItem("arrayCart",JSON.stringify(arrayP));
+    props.setLocalCount(getCountArray(arrayP));
     props.setarrayP(arrayP)
+    localStorage.setItem("arrayCart",JSON.stringify(arrayP));
+    localStorage.setItem("countQuanity",getCountArray(arrayP))
     props.onHide();
 };
 useEffect(() => {
@@ -85,6 +88,8 @@ useEffect(() => {
       return count * (prices + Number(checked.value))
   });
 }, [checked, count, prices]) 
+
+
     return (
       <Modal
         {...props}
@@ -134,7 +139,7 @@ useEffect(() => {
 
 
                                         <span className="mx-2" name="test" id="idcount" value={count}
-                                            onChange={e => setCount(e.target.value)}>{count}</span>
+                                            >{count}</span>
 
                                         <button type="button" id="btn_up" className="mx-2 btn btn-circle-primary" onClick={() => setCount(count + 1)}>
                                             <FaPlus className="fas fa-plus text-white"></FaPlus></button>

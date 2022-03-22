@@ -13,7 +13,6 @@ import { io } from "https://cdn.socket.io/4.3.2/socket.io.esm.min.js";
 
 function ShopingCart({setLocalCount,coupon}){
   
-
   const [arrayP,setarrayP] = useState(JSON.parse(localStorage.getItem('arrayCart')));
   const [name,setName] = useState('');
   const [email,setEmail] = useState(''); 
@@ -30,6 +29,7 @@ function ShopingCart({setLocalCount,coupon}){
     const priceCouponNow = getPriceCoupon(priceTotalNow,coupon)
     setPriceCoupon(priceCouponNow);
     setPriceAll(getTotalWithCoupon(priceTotalNow,priceCouponNow))
+    setLocalCount(getCountArray(arrayP));
   },[coupon,priceTotal,arrayP])
 
   function clearCart() {
@@ -55,7 +55,7 @@ function ShopingCart({setLocalCount,coupon}){
     }
   }
   const getCountArray=(array)=>{
-    return array.reduce((preCount,item)=>preCount+item.countQuanity,0);
+    return array.reduce((preCount,item)=>preCount+item.quanityProduct,0);
   }
   const handleRemove=(index)=>{
     const newList=arrayP.filter((order,indexOrder)=>indexOrder !== index);
