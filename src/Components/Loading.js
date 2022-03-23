@@ -1,23 +1,19 @@
-import { React, useState} from "react"
+import { React} from "react"
 import '../App.css';
-
-import { css } from "@emotion/react";
-import ClipLoader from "react-spinners/ClipLoader";
-const override = css`
-  display: block;
-  margin: 0 auto;
-  border-color: red;
-`;
+import { Spinner, Modal} from 'react-bootstrap';
 export default function Loading({status}) {
-  const [show, setShow] = useState(status);
-    const handleShow = () => setShow(true);
+  
   return (
       <> 
-    <Modal show={show} onHide={handleShow} aria-labelledby="contained-modal-title-vcenter">     
-        <Modal.Body>     
-        <ClipLoader color={"#f00"} loading={true} css={override} size={150} />
-        </Modal.Body>  
-    </Modal>
+      
+        <Modal show={status} aria-labelledby="contained-modal-title-vcenter" centered contentClassName="bg-transparent border-0">
+        <Modal.Body> 
+            <div className="text-center">
+            <Spinner animation="border" variant="warning" />
+            </div> 
+        </Modal.Body>
+       
+        </Modal>
  </>
   
 

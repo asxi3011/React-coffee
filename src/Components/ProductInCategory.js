@@ -1,25 +1,32 @@
 
-import {React, useState, useEffect,useCallback } from "react"
+import {React, useState, useEffect } from "react"
 import axios from 'axios'
 import { useParams } from 'react-router-dom';
 import Category from "./Category"
 import Slider from "./Slider"
 import CardProduct from "./CardProduct"
+import Loading from "./Loading";
 function ProductInCategory({categorys}) {
+   
     const { slug } = useParams();
     const [products, setProducts] = useState([])
-    const fetchMyAPI = useCallback(async () => {
-        if(slug === "product"){
-            const response = await axios.get(`https://sever-coffeehouse.herokuapp.com/getProducts`);
-            setProducts(response.data.dataProducts)
-        }else{
-            const response = await axios.get(`https://sever-coffeehouse.herokuapp.com/getProductsInCategory/${slug}`)
-            setProducts(response.data.dataProducts);
-        }
-      }, [slug])
-    useEffect(async () => {
+    const [loading,setLoading] = useState(true);
+    useEffect(() => {
+        setLoading(true);
+        async function fetchMyAPI() {
+            if(slug === "product"){
+                const response = await axios.get(`https://sever-coffeehouse.herokuapp.com/getProducts`);
+                setProducts(response.data.dataProducts);
+                setLoading(false);
+            }else{
+                const response = await axios.get(`https://sever-coffeehouse.herokuapp.com/getProductsInCategory/${slug}`)
+                setProducts(response.data.dataProducts);
+                setLoading(false);
+            }
+          }
         fetchMyAPI();
-    }, [fetchMyAPI])
+       
+    }, [slug])
         return (
             <>
                 <div className="pd-header">
@@ -56,6 +63,7 @@ function ProductInCategory({categorys}) {
                         </div>
                     </div>
                 </div>
+            <Loading status={loading}/>           
             </>
         )
 }

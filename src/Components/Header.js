@@ -143,7 +143,7 @@ function Header({localCount,setCoupon}) {
                                 <div
                                     className="color-primary mt-2 pe-cursor add_coupon"
                                     data="30phantram"
-                                    onClick={()=>{localStorage.setItem("coupon","30phantram");setCoupon("30phantram")}}
+                                    onClick={()=>{localStorage.setItem("coupon","30phantram");setCoupon("30phantram"); setShow(false);}}
                                 >
                                     Sử dụng ngay
                                 </div>
@@ -169,7 +169,7 @@ function Header({localCount,setCoupon}) {
                                 <div
                                     className="color-primary mt-2 pe-cursor add_coupon"
                                     data="19tuoixanh"
-                                    onClick={()=>{localStorage.setItem("coupon","19tuoixanh");setCoupon("19tuoixanh")}}
+                                    onClick={()=>{localStorage.setItem("coupon","19tuoixanh");setCoupon("19tuoixanh"); setShow(false);}}
                                 >
                                     Sử dụng ngay
                                 </div>

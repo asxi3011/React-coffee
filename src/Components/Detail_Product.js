@@ -8,7 +8,7 @@ import { FaPlus, FaMinus } from "react-icons/fa";
 import { useParams } from "react-router-dom";
 
 import 'react-toastify/dist/ReactToastify.css';
-
+import Loading from './Loading';
 const DetailProduct = ({setLocalCount}) => {
     let customToast = () =>
         toast.success('Chọn món thành công',
@@ -17,6 +17,7 @@ const DetailProduct = ({setLocalCount}) => {
                 draggable: true,
                 hideProgressBar: true,
             });
+    const [loading,setLoading] = useState(true);
     const [count, setCount] = useState(1)
     const [notes, setNote] = useState([])
     const [sizes, setSizes] = useState([])
@@ -92,23 +93,24 @@ const DetailProduct = ({setLocalCount}) => {
         )
     } // Componet Size
     useEffect(() => {
-
+        setLoading(true);
         axios.get(`https://sever-coffeehouse.herokuapp.com/product/${slug}`)
-            .then(res => {
-                setImgs(res.data.product.imageRepresent)
-                setprices(res.data.product.priceStandard)
-                setPriceTotal(res.data.product.priceStandard);
-                setDescription(res.data.product.descriptionProduct)
-                setNameProducts(res.data.product.nameProduct)
-                setSizes(res.data.size)
-                setIds(res.data.product._id)
-                setChecked({ name: res.data.size[0].name, value: res.data.size[0].value })
-            });
+        .then(res => {
+            setImgs(res.data.product.imageRepresent)
+            setprices(res.data.product.priceStandard)
+            setPriceTotal(res.data.product.priceStandard);
+            setDescription(res.data.product.descriptionProduct)
+            setNameProducts(res.data.product.nameProduct)
+            setSizes(res.data.size)
+            setIds(res.data.product._id)
+            setChecked({ name: res.data.size[0].name, value: res.data.size[0].value })
+            setLoading(false);
+        });
 
     }, [slug]) // Lấy dữ liệu từ API
 
     return (
-
+        <>
         <div className="pd-header">
             <div className="container">
                 <div className="name">
@@ -189,7 +191,8 @@ const DetailProduct = ({setLocalCount}) => {
             </div>
         </div>
 
-
+         <Loading status={loading}/>                               
+         </>
     )
 }
 

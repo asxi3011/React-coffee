@@ -15,21 +15,26 @@ import './App.css'
 import DetailProduct from './Components/Detail_Product.js'
 import ShopingCart from './Components/ShopingCart';
 import 'bootstrap/dist/js/bootstrap.min.js'
+import Loading from './Components/Loading';
 import axios from 'axios'
 function App() {
-
+  const [loading,setLoading] = useState(true);
   const [categorys, setCategorys] = useState([])
   const [news, setNews] = useState([])
   const [products, setProducts] = useState([]);
   const [coupon,setCoupon] = useState(localStorage.getItem('coupon'));
   const [localCount,setLocalCount] = useState(JSON.parse(localStorage.getItem('countQuanity')) || 0);
-  useEffect(async () => {
-    const categorys = await axios.get('https://sever-coffeehouse.herokuapp.com/getCategories')
-    const products = await axios.get(`https://sever-coffeehouse.herokuapp.com/bestseller12`)
-    const news = await axios.get('https://sever-coffeehouse.herokuapp.com/news')
-    setCategorys(categorys.data.dataCategories);
-    setNews(news.data.dataPosts);
-    setProducts(products.data.dataBestseller);
+  useEffect(() => {
+    async function getData(){
+      const categorys = await axios.get('https://sever-coffeehouse.herokuapp.com/getCategories')
+      const products = await axios.get(`https://sever-coffeehouse.herokuapp.com/bestseller12`)
+      const news = await axios.get('https://sever-coffeehouse.herokuapp.com/news')
+      setCategorys(categorys.data.dataCategories);
+      setNews(news.data.dataPosts);
+      setProducts(products.data.dataBestseller);
+      setLoading(false);
+    }
+    getData();
   }, [])
   
   return (
@@ -46,6 +51,7 @@ function App() {
           <Route path="/cart" element={localCount> 0 ?<ShopingCart setLocalCount={setLocalCount} coupon={coupon}/>: <ThongBao></ThongBao>} />
         </Routes>
         <Footer />
+        <Loading status={loading}/>
       </div>
     </GlobalStyles>
   );
