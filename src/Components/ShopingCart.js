@@ -6,8 +6,7 @@ import axios from 'axios';
 import ThanhToan from "./ThanhToan";
 import { io } from "https://cdn.socket.io/4.3.2/socket.io.esm.min.js";
 import { Alert } from "bootstrap";
-function ShopingCart({setLocalCount,coupon}){
-  
+function ShopingCart({setLocalCount,coupon}){  
   const [arrayP,setarrayP] = useState(JSON.parse(localStorage.getItem('arrayCart')));
   const [name,setName] = useState('');
   const [email,setEmail] = useState(''); 
