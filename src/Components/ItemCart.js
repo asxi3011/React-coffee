@@ -22,6 +22,7 @@ function ItemCart(props){
                         Size : {props.cart.sizeName}
                       </div>
                       <div>
+                        {props.cart.note}
                       </div>
                       <div onClick={()=>props.handleRemove(props.index)} className="btn-delte-product-cart d-inline-block">
                         Xóa
