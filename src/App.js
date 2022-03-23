@@ -45,7 +45,7 @@ function App() {
           <Route path="/" element={<Home categorys={categorys} products={products} news={news} />} />
           <Route path="/news" element={<PageNews news={news} />} />
           <Route path="/news/:slug" element={<NewId />} />
-          <Route path="/:slug" element={<ProductInCategory categorys={categorys} />} />
+          <Route path="/:slug" element={<ProductInCategory setLoading={setLoading} categorys={categorys} />} />
           <Route path="/product/:slug" element={<DetailProduct setLocalCount={setLocalCount}/>} />
           <Route path="/tracuudonhang" element={<GetOrder />} />
           <Route path="/cart" element={localCount> 0 ?<ShopingCart setLocalCount={setLocalCount} coupon={coupon}/>: <ThongBao></ThongBao>} />

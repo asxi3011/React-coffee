@@ -93,6 +93,7 @@ function ShopingCart({setLocalCount,coupon}){
       axios.post('https://sever-coffeehouse.herokuapp.com/order', {
         noteOrder: note,
         hotenOrder: name,
+        emailOrder:email,
         sdtOrder: phone,
         addressOrder: address,
         priceCharge: 30000,
@@ -110,7 +111,7 @@ function ShopingCart({setLocalCount,coupon}){
         axios.post('https://sever-coffeehouse.herokuapp.com/sendMail', {
             mail: email,
             address: address,
-            priceTotal: priceTotal,
+            priceTotal: priceAll,
             name: name,
             idOrder: idOrder,
         })
