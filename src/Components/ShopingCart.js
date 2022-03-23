@@ -1,17 +1,11 @@
 
 import React from "react";
-
 import { useState, useEffect } from 'react';
-
 import ItemCart from './ItemCart'
 import axios from 'axios';
-
 import ThanhToan from "./ThanhToan";
-
 import { io } from "https://cdn.socket.io/4.3.2/socket.io.esm.min.js";
 import { Alert } from "bootstrap";
-
-
 function ShopingCart({setLocalCount,coupon}){
   
   const [arrayP,setarrayP] = useState(JSON.parse(localStorage.getItem('arrayCart')));
@@ -79,6 +73,7 @@ function ShopingCart({setLocalCount,coupon}){
         noteOrder: note,
         hotenOrder: name,
         sdtOrder: phone,
+        emailOrder:email,
         addressOrder: address,
         priceCharge: 30000,
         priceCoupon: priceCoupon,
@@ -96,7 +91,7 @@ function ShopingCart({setLocalCount,coupon}){
         axios.post('https://sever-coffeehouse.herokuapp.com/sendMail', {
             mail: email,
             address: address,
-            priceTotal: priceTotal,
+            priceTotal: priceAll,
             name: name,
             idOrder: idOrder,
         })
