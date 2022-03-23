@@ -99,7 +99,7 @@ function ShopingCart({setLocalCount,coupon}){
         priceCharge: 30000,
         priceCoupon: priceCoupon,
         nameCoupon: coupon,
-        priceTotal: priceTotal,
+        priceTotal: priceAll,
         listProductOrder: arrayP,
         payment: "Tiền mặt",
       })
