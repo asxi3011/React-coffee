@@ -32,6 +32,3 @@ Truy cập vào trang web để thao tác trên trang người dùng
     - Ở bên trái nút đặt hàng sẽ hiển thị giá sau khi đã trừ khuyến mãi và đã cộng phí ship.
     - Ấn nút đặt hàng hệ thống sẽ gửi thông tin đặt hàng của bạn qua email và xóa hết sp trong giỏ hàng  đồng thời trở về trang trủ.
  > File trong source code : **ShoppingCart.js** :card_index_dividers:
-
-
-

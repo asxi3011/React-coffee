@@ -1,12 +1,19 @@
 
 import React from "react";
+import { useNavigate } from "react-router-dom"
 import { useState, useEffect } from 'react';
 import ItemCart from './ItemCart'
 import axios from 'axios';
+import Loading from "./Loading";
 import ThanhToan from "./ThanhToan";
-import { io } from "https://cdn.socket.io/4.3.2/socket.io.esm.min.js";
-import { Alert } from "bootstrap";
-function ShopingCart({setLocalCount,coupon}){  
+import { io } from "socket.io-client";
+
+
+
+function ShopingCart({setLocalCount,coupon}){
+  
+  let navigate = useNavigate();
+  let [loading, setLoading] = useState(false);
   const [arrayP,setarrayP] = useState(JSON.parse(localStorage.getItem('arrayCart')));
   const [name,setName] = useState('');
   const [email,setEmail] = useState(''); 
@@ -25,7 +32,19 @@ function ShopingCart({setLocalCount,coupon}){
     setPriceAll(getTotalWithCoupon(priceTotalNow,priceCouponNow))
     setLocalCount(getCountArray(arrayP));
   },[coupon,priceTotal,arrayP])
-
+  const validateEmail = (email) => {
+    return String(email)
+      .toLowerCase()
+      .match(
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+      );
+  };
+  const validateCheckEmpty = (value)=>{
+      return value.trim() !== "";
+  }
+  const validateInput = (iname,iadress,iphone,iemail)=>{
+    return validateEmail(iemail) && validateCheckEmpty(iname) && validateCheckEmpty(iphone) && validateCheckEmpty(iadress);
+  }
   function clearCart() {
     sessionStorage.removeItem("arrayCart");
     sessionStorage.removeItem("countQuanity");
@@ -67,17 +86,20 @@ function ShopingCart({setLocalCount,coupon}){
   }
   
   const redirectOnline=()=>{
-     
+    
+    if(validateInput(name,address,phone,email)){
+      setLoading(true);
       axios.post('https://sever-coffeehouse.herokuapp.com/order', {
         noteOrder: note,
         hotenOrder: name,
+        emailOrder:email,
         sdtOrder: phone,
         emailOrder:email,
         addressOrder: address,
         priceCharge: 30000,
         priceCoupon: priceCoupon,
         nameCoupon: coupon,
-        priceTotal: priceTotal,
+        priceTotal: priceAll,
         listProductOrder: arrayP,
         payment: "Tiền mặt",
       })
@@ -86,7 +108,6 @@ function ShopingCart({setLocalCount,coupon}){
         var idOrder = response.data.idOrder;
         const socket = io("https://sever-coffeehouse.herokuapp.com", { transports : ['websocket'] });
         socket.emit("don-hang-moi", response.data);
-        
         axios.post('https://sever-coffeehouse.herokuapp.com/sendMail', {
             mail: email,
             address: address,
@@ -95,22 +116,32 @@ function ShopingCart({setLocalCount,coupon}){
             idOrder: idOrder,
         })
         .then(function (responseMail) {
-        
+          setLoading(false);
+          alert("Đặt hàng thành công ! Quý khách vui lòng kiểm tra email để biết được id đơn hàng và tra cứu thông tin !")
             localStorage.removeItem('arrayCart');
             localStorage.removeItem('countQuanity');
+            navigate("/");
             setarrayP("");
             setLocalCount(0);
-            console.log("Mail",responseMail);
-            console.log("Gửi thành công");
+
         })
     
       })
       .catch(function (error) {
         console.log(error);
       });
+    }
+    else{
+      setLoading(false);
+      alert("Vui long nhập email và thông tin không được để trống")
+    }
     
   }
   return (  
+    <>
+   
+    
+
     <div className="pd-header">
       <div className="container">
         <div className="name2">
@@ -131,10 +162,10 @@ function ShopingCart({setLocalCount,coupon}){
                     </div>
                     <div>
                         <div className="line_bottom" />
+                              <input type="text" value={email} onChange={(e)=>{setEmail(e.target.value);console.log(e.target.value)}} name="emailCus" className="form-control input-text-address" placeholder="Email" required />
                               <input type="text" value={address} onChange={(e)=>{console.log(e.target.value);setAddress(e.target.value)}} name="addressCus" className="form-control input-text-address" placeholder="Địa chỉ" required />
                               <input type="text" value={name} onChange={(e)=>setName(e.target.value)}name="nameCus" className="form-control input-text-address" placeholder="Tên người nhận" required />
                               <input type="text" value={phone} onChange={(e)=>setPhone(e.target.value)}name="numberCus" className="form-control input-text-address" placeholder="Số điện thoại" required />
-                              <input type="text" value={email} onChange={(e)=>{setEmail(e.target.value)}} name="emailCus" className="form-control input-text-address" placeholder="Email" required />
                               <input type="text" value={note} onChange={(e)=>setNote(e.target.value)} name="noteCus" className="form-control input-text-address" placeholder="Thêm hướng dẫn giao hàng" />
                       </div>
 
@@ -198,7 +229,7 @@ function ShopingCart({setLocalCount,coupon}){
                                   <div id="price_total_with_charge_show" className="fw-bold" >{priceAll.toLocaleString("vi-VN",{style:"currency", currency:"VND"})}</div>
                                   <input id="price_total_with_charge" name="priceTotal" className="fw-bold" hidden />
                                 </div>
-                                <button onClick={redirectOnline}className="btn btn-light color-primary">
+                                <button onClick={()=>{setLoading(true);redirectOnline()}} className="btn btn-light color-primary">
                                   Đặt hàng
                                 </button>
                               </div>
@@ -211,48 +242,12 @@ function ShopingCart({setLocalCount,coupon}){
               </div>
             </div>
           </div>
-          <div className="modal fade" id="modalHappy">
-            <div className="modal-dialog modal-dialog-centered">
-                <div className="modal-content modal-cart d-flex">
-                    <div className="p-3 ">
-                        <div className="m-auto text-white fs-3 text-center">
-                            <img className="img-50 img-rdus-4"
-                                src="https://image.freepik.com/free-vector/cute-monkey-astronaut-floating-cartoon-vector-icon-illustration-animal-technology-icon-concept-isolated-premium-vector-flat-cartoon-style_138676-3519.jpg"
-                                alt=""/>
-                        </div>
-                        <div className="text-center fw-bold fs-4 my-3">
-                            Quý khách Đặt hàng thành công.
-                            <br/>
-                            Vui lòng kiểm tra lại email
-                        </div>
-                        <div className="text-center my-3">
-                            <button id="btn_comeback" className="btn btn-modal-cart fw-bold" data-bs-dismiss="modal"> Trở lại trang
-                                chủ </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            </div>
-
-        <div className="modal fade" id="modalLoading" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-            aria-labelledby="staticBackdropLabel" aria-hidden="true">
-            <div className="modal-dialog modal-dialog-centered">
-                <div className="modal-content modal-loading d-flex">
-                    <div className="p-3 ">
-                        <div className="d-flex justify-content-center">
-                            <div className="spinner-border spinner-center color-primary-light" role="status">
-                                <span className="sr-only">Loading...</span>
-                            </div>
-                            <div className="mt-5 fw-bold color-primary-light fs-5">
-                                Loading...
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+         
     </div>
+    <Loading status={loading}/>
    
+    </>
+    
     
   )
 }
