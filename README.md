@@ -6,7 +6,7 @@
 
 ## Hướng dẫn sử dụng :
 Truy cập vào trang web để thao tác trên trang người dùng
->[WEB](https://client-coffeehouse.herokuapp.com)
+>[https://client-coffeehouse.herokuapp.com](https://client-coffeehouse.herokuapp.com)
 1. **Các nút chức năng trên header**:
     - Nút đặt hàng : Hiển thị tất cả các sản phẩm hiện có
     - Nút tin tức : Hiển thị tất cả các tin tức hiện có
