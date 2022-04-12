@@ -1,25 +1,30 @@
-import React from "react"
 
-import News from './News.js'
+import { Link } from "react-router-dom";
+import { React ,memo,useState,useEffect} from "react"
+import {getNews,getStatusLoading,getProductsInTea,getProductsInCoffee,getProductsInHome,getProductsInCake,getProductsInFreeze } from "../redux/selector";
+import ListProduct from "./ListProduct/index";
+import { useSelector,useDispatch} from 'react-redux';
+import Slider from './Slider'
+import ListCategory from './ListCategory/index'
+import newsSlice from "./News/newsSlice";
+import Loading from './Loading'
+import ListNews from "./ListNews";
+export default function PageNews(){
+    const listNews = useSelector(getNews);
+  
 
-function PageNews({news}) {
-    return (
-        <>
-            <div className="container-fluid pd-header">
+    return(
+    
+        <div className="pd-header">
+            <div className="container-fluid">
                 <div className="pd-w-100 section-Chapter">
-                    <div className="text-center fs-3">
-                        <i className="fas fa-newspaper fs-4 color-primary" /> Tin tức
-                    </div>
-                    <div className="preview-News mt-5">
-                        <div className="row my-3">
-                            {news.map((neww,index)=><News key={index} data={neww}/>)}
-                        </div>
-                    </div>
-              
+                  
+                    
+                { <ListNews news={listNews}/> }
                 </div>
             </div>
-        </>
+
+        </div>
+    
     )
 }
-
-export default PageNews

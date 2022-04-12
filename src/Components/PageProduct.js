@@ -1,4 +1,5 @@
-import { Link } from "react-router-dom";
+
+import { Link,useParams} from "react-router-dom";
 import { React ,memo,useState,useEffect} from "react"
 import {getNews,getStatusLoading,getProductsInTea,getProductsInCoffee,getProductsInHome,getProductsInCake,getProductsInFreeze } from "../redux/selector";
 import ListProduct from "./ListProduct/index";
@@ -8,19 +9,17 @@ import ListCategory from './ListCategory/index'
 import newsSlice from "./News/newsSlice";
 import Loading from './Loading'
 
-import ListNews from './ListNews/index'
-
-function Home() {
-    
+export default function PageProduct({nameSelected}){
+    const dispatch = useDispatch();
+    const {slug} = useParams();
+    console.log(slug);
     const coffeeProduct = useSelector(getProductsInCoffee);
     const teaProduct = useSelector(getProductsInTea);
     const homeProduct = useSelector(getProductsInHome);
     const cakeProduct = useSelector(getProductsInCake);
     const freezeProduct = useSelector(getProductsInFreeze);
-    const [checked,setChecked] = useState('bánh ngọt');
+    const [checked,setChecked] = useState(slug);
     const loaded = useSelector(getStatusLoading);
-    const listNews = useSelector(getNews);
-    console.log('oknew',coffeeProduct);
     function getList(){
         if(coffeeProduct.checked){
             return {name:coffeeProduct.name,list:coffeeProduct.list,slug:coffeeProduct.slug};
@@ -39,35 +38,31 @@ function Home() {
         }
         return {name:'',list:[]};
     }
-    return (
+ 
+  
+    return(
         <>
-            <div className="pd-header">
-                <Slider/>
-                <div className="container-fluid">
-                    <div className="pd-w-100 section-Chapter">
-                        <div className="preview-Menu">
-                            <div className="text-center fs-3 mb-3 mt-3">
-                                <span>
-                                    <i className="fas fa-trophy color-primary fs-4" />
-                                </span>
-                                Sản phẩm từ Nhà
-                            </div>
-                         
-                            <ListCategory checked={checked} setChecked={setChecked}/>
-                          
+        <div className="pd-header">
+            <div className="container-fluid">
+                <div className="pd-w-100 section-Chapter">
+                    <div className="preview-Menu">
+                        <div className="text-center fs-3 mb-3 mt-3">
+                            <span>
+                                <i className="fas fa-trophy color-primary fs-4" />
+                            </span>
+                            Sản phẩm từ Nhà
                         </div>
-                        
-                        {<ListProduct products={getList()} length={12} />}
+                     
+                        <ListCategory checked={checked} setChecked={setChecked} showParams={true}/>
+                      
                     </div>
+                    
+                    {<ListProduct products={getList()}/>}
                 </div>
-                { <ListNews news={listNews}/> }
-
             </div>
-            <Loading status={loaded}/>
-        </>
-        
+
+        </div>
+        <Loading status={loaded}/>
+    </>
     )
 }
-
-
-export default memo(Home)
